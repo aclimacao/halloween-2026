@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Passarela · Votação · Pesadelo Letivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0620;--tx:#f6f0ff;--mut:#b9aad6;--lar:#ff7a1a;--rosa:#ff3d9a;--rox:#8b5cff;--lima:#c6ff3d;--cia:#3de0ff;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 16px/1.5 "DM Sans",system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",sans-serif;margin:0;line-height:1.05}
+.blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.4;pointer-events:none;animation:drift 14s ease-in-out infinite alternate}
+.b1{width:280px;height:280px;background:var(--rosa);top:-80px;right:-80px}.b2{width:260px;height:260px;background:var(--rox);bottom:-60px;left:-80px;animation-delay:-6s}
+@keyframes drift{to{transform:translate(40px,40px) scale(1.2)}}
+main{position:relative;max-width:640px;margin:0 auto;padding:16px 18px 60px}
+.scene{position:relative;height:130px;border-radius:26px;overflow:hidden;background:linear-gradient(#1a0b3d,#4a1458)}
+.scene svg{position:absolute}
+.moon{position:absolute;right:16px;top:14px;width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff6d6,#ffd98a 70%);box-shadow:0 0 40px 10px #ffb34755}
+.bat{fill:#12082a;left:-50px;width:34px;animation:fly 9s linear infinite}.bat path{transform-origin:center;animation:fl .25s ease-in-out infinite alternate}
+.t1{top:20px}.t2{top:60px;animation-delay:-4s;width:26px}
+@keyframes fly{to{transform:translateX(110vw)}}@keyframes fl{to{transform:scaleY(.55)}}
+.gh{left:12%;bottom:12px;width:44px;animation:bob 4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-12px)}}
+h1{font-size:2.4rem;font-weight:800;letter-spacing:-.03em;margin:18px 0 6px;background:linear-gradient(100deg,var(--lar),var(--rosa),var(--rox));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mut);margin:0 0 14px}
+a.back{color:var(--cia);font-weight:700;text-decoration:none}
+.seg{display:flex;padding:4px;gap:4px;border-radius:99px;background:#ffffff14;margin:14px 0}
+.seg button{flex:1;font:inherit;font-weight:700;color:var(--mut);background:none;border:0;border-radius:99px;padding:10px 4px;cursor:pointer}
+.seg button[aria-pressed=true]{background:linear-gradient(90deg,var(--lar),var(--rosa));color:#12082a}
+.box{background:#ffffff12;border:1px solid #ffffff2a;border-radius:22px;padding:6px 18px 12px;margin-top:12px}
+.row{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center;padding:12px 0;border-bottom:1px solid #ffffff1f}
+.row:last-child{border:0}.row b{display:block}.row small{color:var(--mut)}
+.vote{font:inherit;font-weight:800;border:2px solid var(--lima);color:var(--tx);background:transparent;border-radius:99px;padding:7px 16px;cursor:pointer}
+.vote[aria-pressed=true]{background:var(--lima);color:#12082a}
+input[type=range]{width:140px;accent-color:var(--lar)}
+input[type=text],input[type=password]{font:inherit;width:100%;padding:11px 14px;border-radius:14px;border:1.5px solid #ffffff40;background:#ffffff14;color:var(--tx);margin:6px 0}
+.go{font:inherit;font-weight:800;padding:12px 20px;border-radius:14px;border:0;background:linear-gradient(90deg,var(--lar),var(--rosa));color:#12082a;cursor:pointer}
+.note{font-size:.85rem;color:var(--mut)}
+.res{display:grid;gap:12px;margin-top:14px}
+.rk{display:grid;grid-template-columns:26px 1fr 40px;gap:8px;align-items:center;padding:6px 0}
+.rk i{display:block;height:8px;border-radius:9px;margin-top:4px;transition:width .5s}
+.j i{background:linear-gradient(90deg,var(--rox),var(--rosa))}.p i{background:linear-gradient(90deg,var(--lima),var(--cia))}
+button:focus-visible,input:focus-visible{outline:3px solid #fff;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div>
+<main>
+<div class="scene" aria-hidden="true"><div class="moon"></div>
+<svg class="bat t1" viewBox="0 0 60 30"><path d="M30 8c-3-5-8-6-14-4 4 2 4 5 3 8-4-2-9-2-15 2 7 0 10 3 12 8 3-4 6-5 9-5 3 0 6 1 9 5 2-5 5-8 12-8-6-4-11-4-15-2-1-3-1-6 3-8-6-2-11-1-14 4z"/></svg>
+<svg class="bat t2" viewBox="0 0 60 30"><path d="M30 8c-3-5-8-6-14-4 4 2 4 5 3 8-4-2-9-2-15 2 7 0 10 3 12 8 3-4 6-5 9-5 3 0 6 1 9 5 2-5 5-8 12-8-6-4-11-4-15-2-1-3-1-6 3-8-6-2-11-1-14 4z"/></svg>
+<svg class="gh" viewBox="0 0 60 70"><path fill="#fff" d="M30 4C16 4 8 15 8 30v34l8-6 7 6 7-6 7 6 7-6 8 6V30C52 15 44 4 30 4z"/><circle cx="22" cy="28" r="4" fill="#12082a"/><circle cx="38" cy="28" r="4" fill="#12082a"/><ellipse cx="30" cy="42" rx="5" ry="6" fill="#12082a"/></svg></div>
+<h1>Passarela</h1>
+<p class="sub">Votação do Pesadelo Letivo. <a class="back" href="https://claude.ai/artifact/6EE7AFduencfqjtG4RZqDG">Voltar à programação</a></p>
+<div class="seg" id="modo"><button data-m="p" aria-pressed="true">Público</button><button data-m="j" aria-pressed="false">Jurados</button><button data-m="r" aria-pressed="false">Telão</button></div>
+<div id="tela"></div>
+</main>
+<script>
+var P=[{id:1,n:"Vampira Retrô",t:"ADM5",c:"est",j:[8.5,7.8],v:12},{id:2,n:"Fantasma do Wi-Fi",t:"INFO12",c:"est",j:[7.9,8.2],v:20},{id:3,n:"Pixel Zumbi",t:"MULTI4",c:"est",j:[9,8.4],v:9},{id:4,n:"Bruxa do Excel",t:"ADM6",c:"est",j:[7.2,7.5],v:15},{id:5,n:"Trio dos Zumbis",t:"INFO12 e ADM6",c:"prof",j:[8,8.5],v:18},{id:6,n:"Coven das Bruxas",t:"MULTI5",c:"prof",j:[8.8,9],v:22},{id:7,n:"O Grito da Prova Final",t:"Equipe 1",c:"car",j:[8,7.6],v:14},{id:8,n:"O Armário 13",t:"Equipe 2",c:"car",j:[7.4,8.1],v:19}];
+var CN={est:"Fantasia individual",prof:"Fantasia em grupo",car:"Cartaz/Ilustração"};
+var CODE="JURADO",CODE2="TELAO",ORG=false,RV={};
+var S={voto:{},nota:{},nome:"",ok:false},modo="p",cat="est";
+try{var s=JSON.parse(localStorage.getItem("hw-vt")||"{}");S.voto=s.voto||{};S.nota=s.nota||{};S.nome=s.nome||""}catch(e){}
+function save(){try{localStorage.setItem("hw-vt",JSON.stringify({voto:S.voto,nota:S.nota,nome:S.nome}))}catch(e){}}
+function tabs(c,list){return '<div class="seg" id="cats">'+list.map(function(k){return '<button data-c="'+k+'" aria-pressed="'+(cat==k)+'">'+CN[k]+'</button>'}).join("")+'</div>'}
+function pub(){var L=P.filter(function(p){return p.c==cat});
+return '<p class="note">Qualquer pessoa pode votar, um voto por categoria neste aparelho.</p>'+tabs(cat,["est","prof","car"])+'<div class="box">'+L.map(function(p){var on=S.voto[cat]==p.id;return '<div class="row"><div><b>'+p.n+'</b><small>'+p.t+'</small></div><button class="vote" data-id="'+p.id+'" aria-pressed="'+on+'">'+(on?"Seu voto":"Votar")+'</button></div>'}).join("")+'</div>'}
+function jur(){if(!S.ok)return '<div class="box" style="padding:16px 18px"><h3>Área dos jurados</h3><p class="note">Cada professor recebe um código pessoal da organização. Neste protótipo, o código de teste é JURADO.</p><label>Seu nome<input type="text" id="nm" value="'+S.nome+'" autocomplete="off"></label><label>Código<input type="password" id="cd" autocomplete="off"></label><button class="go" id="entrar">Entrar</button><p class="note" id="err"></p></div>';
+var L=P.filter(function(p){return p.c==cat});
+return '<p class="note">Jurado: '+S.nome+'. Notas de 0 a 10.</p>'+tabs(cat,["est","prof","car"])+'<div class="box">'+L.map(function(p){var n=S.nota[p.id];return '<div class="row"><div><b>'+p.n+'</b><small>'+p.t+'</small></div><label><small>Nota <span>'+(n!=null?n:"–")+'</span></small><input type="range" min="0" max="10" step="0.5" value="'+(n!=null?n:5)+'" data-id="'+p.id+'" aria-label="Nota para '+p.n+'"></label></div>'}).join("")+'</div><p><button class="go" id="sair">Sair</button></p>'}
+function avg(p){var a=p.j.slice();if(S.nota[p.id]!=null)a.push(S.nota[p.id]);return a.length?a.reduce(function(x,y){return x+y},0)/a.length:0}
+function pv(p){return p.v+(S.voto[p.c]==p.id?1:0)}
+function rk(c,j){return P.filter(function(p){return p.c==c}).map(function(p){return{p:p,v:j?avg(p):pv(p)}}).sort(function(a,b){return b.v-a.v}).slice(0,3)}
+var KS=[["j","est","Júri · Individual"],["j","prof","Júri · Grupo"],["j","car","Júri · Cartaz/Ilustração"],["p","est","Público · Individual"],["p","prof","Público · Grupo"],["p","car","Público · Cartaz/Ilustração"]];
+function res(){if(!ORG)return '<div class="box" style="padding:16px 18px"><h3>Telão da organização</h3><p class="note">Os resultados ficam escondidos até a revelação no projetor. Código de teste: TELAO.</p><input type="password" id="cd2" autocomplete="off" aria-label="Código da organização"><button class="go" id="ent2">Abrir telão</button><p class="note" id="err2"></p></div>';
+return '<p class="note">Modo telão. Toque em Revelar para mostrar do 3º ao 1º lugar.</p>'+KS.map(function(k){var key=k[0]+k[1],n=RV[key]||0,T=rk(k[1],k[0]=="j"),sh=T.slice(Math.max(T.length-n,0));return '<div class="box '+k[0]+'"><h3 style="padding-top:12px">'+k[2]+'</h3>'+sh.map(function(r){var pos=T.indexOf(r)+1;return '<div class="rk" style="font-size:1.3rem"><b>'+['🥇','🥈','🥉'][pos-1]+'</b><div>'+r.p.n+'</div><b>'+(k[0]=="j"?r.v.toFixed(1):r.v)+'</b></div>'}).join("")+(n<T.length?'<button class="go" data-k="'+key+'" style="margin-top:8px">Revelar '+(T.length-n)+'º lugar</button>':'')+'</div>'}).join("")}
+function res0(){function lst(c,j){var L=P.filter(function(p){return p.c==c});var R=L.map(function(p){return{p:p,v:j?avg(p):pv(p)}}).sort(function(a,b){return b.v-a.v});var mx=Math.max.apply(null,R.map(function(r){return r.v}))||1;return R.map(function(r,i){return '<div class="rk"><b>'+(i+1)+'º</b><div>'+r.p.n+'<i style="width:'+(r.v/mx*100)+'%"></i></div><b>'+(j?r.v.toFixed(1):r.v)+'</b></div>'}).join("")}
+return '<p class="note">Dois prêmios separados. Na versão final, os resultados só aparecem para a organização.</p><div class="res"><div class="box j"><h3 style="padding-top:12px">Escolha do Júri</h3><p class="note">Estudantes</p>'+lst("est",1)+'<p class="note">Professores</p>'+lst("prof",1)+'</div><div class="box p"><h3 style="padding-top:12px">Escolha do Público</h3><p class="note">Estudantes</p>'+lst("est",0)+'<p class="note">Professores</p>'+lst("prof",0)+'<p class="note">Cartazes</p>'+lst("car",0)+'</div></div>'}
+function draw(){document.getElementById("tela").innerHTML=modo=="p"?pub():modo=="j"?jur():res()}
+document.addEventListener("click",function(e){var t=e.target.closest("button");if(!t)return;
+if(t.dataset.m){modo=t.dataset.m;document.querySelectorAll("#modo button").forEach(function(b){b.setAttribute("aria-pressed",b==t)});draw()}
+else if(t.dataset.c){cat=t.dataset.c;draw()}
+else if(t.classList.contains("vote")){var i=+t.dataset.id;S.voto[cat]=S.voto[cat]==i?0:i;save();draw()}
+else if(t.id=="entrar"){var n=document.getElementById("nm").value.trim(),c=document.getElementById("cd").value;if(n&&c==CODE){S.nome=n;S.ok=true;save();draw()}else document.getElementById("err").textContent="Informe seu nome e o código correto."}
+else if(t.id=="ent2"){if(document.getElementById("cd2").value==CODE2){ORG=true;draw()}else document.getElementById("err2").textContent="Código incorreto."}
+else if(t.dataset.k){RV[t.dataset.k]=(RV[t.dataset.k]||0)+1;draw()}
+else if(t.id=="sair"){S.ok=false;draw()}});
+document.addEventListener("input",function(e){if(e.target.type=="range"){S.nota[e.target.dataset.id]=+e.target.value;save();e.target.previousElementSibling.querySelector("span").textContent=e.target.value}});
+draw();
+</script>
+</body>
+</html>

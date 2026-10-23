@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sábado Assombrado · Senac Aclimação</title>
+<title>Sábado Letivo · Senac Aclimação</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -17,32 +17,33 @@ h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",sans-serif;margin:0;line-he
 .b1{width:300px;height:300px;background:var(--lar);top:-80px;left:-80px}.b2{width:280px;height:280px;background:var(--rox);top:40%;right:-120px;animation-delay:-5s}.b3{width:260px;height:260px;background:var(--rosa);bottom:-80px;left:10%;animation-delay:-9s}
 @keyframes drift{to{transform:translate(50px,40px) scale(1.2)}}
 main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:18px 18px 110px}
-.lamp{position:relative;height:300px;border-radius:28px;overflow:hidden;isolation:isolate;background:#05020d;border:1px solid #ffffff22;touch-action:none;cursor:crosshair;--x:50%;--y:50%;margin-top:12px}
+.lamp{position:relative;height:360px;margin:6px -18px 0;overflow:hidden;isolation:isolate;touch-action:none;cursor:crosshair;--x:50%;--y:50%}
 .lamp .dim{position:absolute;inset:0;display:grid;place-items:center;text-align:center;opacity:.42}
 .hero .lamp h1,.ttl{margin:0;font-weight:800;font-size:clamp(2.6rem,13vw,4.6rem);letter-spacing:-.04em;line-height:.95;background:linear-gradient(100deg,var(--lar),var(--rosa),var(--rox),var(--lar));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 8s linear infinite}
 .eyes i{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--lima);box-shadow:14px 0 0 var(--lima);animation:bk 5s infinite;opacity:.8}
 @keyframes bk{0%,90%,100%{opacity:.8}93%,97%{opacity:0}}
-.hid{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#150a33,#3a1257 60%,#5a1658);-webkit-mask-image:radial-gradient(circle 115px at var(--x) var(--y),#000 0,#000 55%,transparent 100%);mask-image:radial-gradient(circle 115px at var(--x) var(--y),#000 0,#000 55%,transparent 100%)}
+.hid{position:absolute;inset:0;overflow:hidden;background:radial-gradient(circle at 18% 95%,#ff7a1add,transparent 48%),radial-gradient(circle at 88% 75%,#ff3d9add,transparent 48%),radial-gradient(circle at 60% 5%,#8b5cffdd,transparent 52%),linear-gradient(#150a33,#2b1263);-webkit-mask-image:radial-gradient(circle 115px at var(--x) var(--y),#000 0,#000 55%,transparent 100%);mask-image:radial-gradient(circle 115px at var(--x) var(--y),#000 0,#000 55%,transparent 100%)}
 .hid>*{position:absolute;pointer-events:none}
 .hid .ttl{inset:0;display:grid;place-items:center;text-align:center;z-index:2}
 .moon{right:7%;top:20px;width:76px;height:76px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff6d6,#ffd98a 70%);box-shadow:0 0 50px 14px #ffb34766}
 .bat{fill:#12082a;left:-50px;width:34px;animation:fly 10s linear infinite}
 .bat path{transform-origin:center;animation:fl .25s ease-in-out infinite alternate}
-.t1{top:30px}.t2{top:236px;animation-delay:-4s;width:26px}.t3{top:70px;animation-delay:-7s;width:28px}
+.t1{top:30px}.t2{top:290px;animation-delay:-4s;width:26px}.t3{top:70px;animation-delay:-7s;width:28px}
 @keyframes fly{to{transform:translateX(110vw)}}@keyframes fl{to{transform:scaleY(.55)}}
 .gh{width:50px;filter:drop-shadow(0 0 10px #fffa);animation:bob 5s ease-in-out infinite}
-.g1{left:6%;top:26px}.g2{left:40%;bottom:44px;width:38px;animation-delay:-2.5s}
+.g1{left:6%;top:26px}.g2{left:40%;bottom:74px;width:38px;animation-delay:-2.5s}
 @keyframes bob{0%,100%{transform:translate(0,0) rotate(-3deg)}50%{transform:translate(10px,-12px) rotate(4deg)}}
 .sp{left:64%;top:0;width:28px;transform-origin:50% 0;animation:sw 3.5s ease-in-out infinite}
 @keyframes sw{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
-.gr{left:0;right:0;bottom:0;height:30px;background:#0a0418;border-radius:50% 50% 0 0/100% 100% 0 0}
-.tb{bottom:18px;width:20px;height:28px;background:#1b0f3a;border-radius:10px 10px 0 0}
-.pump{right:5%;bottom:14px;width:66px}
+.gr{left:-5%;right:-5%;bottom:0;height:46px;background:var(--bg);border-radius:50% 50% 0 0/100% 100% 0 0}
+.tb{bottom:34px;width:20px;height:28px;background:var(--bg);border-radius:10px 10px 0 0}
+.pump{right:6%;bottom:26px;width:66px}
 .pump .gl{animation:fk 1.8s infinite}
 @keyframes fk{0%,100%{opacity:1}30%{opacity:.55}55%{opacity:.9}75%{opacity:.4}}
 .beam{position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:screen;background:radial-gradient(circle 135px at var(--x) var(--y),rgba(255,214,140,.22),transparent 70%)}
-.hint{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:.8rem;color:var(--mut);z-index:4;pointer-events:none;transition:opacity .5s}
+.hint{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:.8rem;color:var(--mut);z-index:4;pointer-events:none;transition:opacity .5s}
 .lamp.used .hint{opacity:0}
+.hero .tags{position:relative;z-index:5;margin-top:-30px}
 .hero h1{font-weight:800;font-size:clamp(3.2rem,16vw,5.8rem);letter-spacing:-.04em;margin:22px 0 14px;background:linear-gradient(100deg,var(--lar),var(--rosa),var(--rox),var(--lar));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 8s linear infinite}
 @keyframes flow{to{background-position:300% 0}}
 .top{font-weight:700;color:var(--mut);font-size:.9rem;margin-top:16px}
@@ -59,13 +60,14 @@ main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:18px 18px
 .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--lar),var(--rosa));border-radius:9px;transition:width .6s}
 select{font:inherit;background:#ffffff18;color:var(--tx);border:1px solid #ffffff35;border-radius:10px;padding:4px 8px}option{color:#111}
 section{padding-top:48px}
-h2{font-size:2.3rem;font-weight:800;letter-spacing:-.03em}
+h2{font-size:2.3rem;font-weight:800;letter-spacing:-.03em;display:inline-block;background:linear-gradient(100deg,var(--lar),var(--rosa),var(--rox));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px #ff3d9a55)}
+h2::after{content:"";display:block;height:4px;width:56px;margin-top:8px;border-radius:9px;background:linear-gradient(90deg,var(--lar),var(--rosa));box-shadow:0 0 14px var(--rosa)}
 .sub{color:var(--mut);margin:6px 0 16px}
 .seg{display:flex;padding:5px;gap:4px;border-radius:99px;background:#1a0f33;border:1px solid #ffffff2a}
 .seg button{flex:1;font:inherit;font-weight:700;color:var(--mut);background:none;border:0;border-radius:99px;padding:10px 6px;cursor:pointer}
 .seg button[aria-selected=true]{background:linear-gradient(90deg,var(--lar),var(--rosa));color:#12082a}
 .card{--c:var(--lar);position:relative;margin-top:16px;padding:20px;border-radius:26px;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 28%,#0e0720),#1a0f33 65%);border:1.5px solid color-mix(in srgb,var(--c) 70%,transparent);box-shadow:0 18px 50px -26px var(--c);overflow:hidden}
-.card .big{display:block;font-size:2.8rem;line-height:1;margin-bottom:8px;transform-origin:30% 70%;transition:transform .3s}
+.card .big{display:grid;place-items:center;width:58px;height:58px;border-radius:18px;background:color-mix(in srgb,var(--c) 38%,#0e0720);border:1.5px solid color-mix(in srgb,var(--c) 60%,transparent);font-size:1.9rem;line-height:1;margin-bottom:12px;transition:transform .3s}
 .card:hover .big{transform:rotate(-10deg) scale(1.1)}
 .card h3{font-size:1.6rem;margin-bottom:6px}
 .card p{margin:6px 0}
@@ -98,7 +100,7 @@ button:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{
 <header class="hero">
 <div class="top">Ensino Médio e Técnico · Senac Aclimação</div>
 <div class="lamp" id="lamp">
-<div class="dim"><h1>Sábado<br>Assombrado</h1></div>
+<div class="dim"><h1>Sábado<br>Letivo</h1></div>
 <div class="eyes" aria-hidden="true"><i style="left:12%;top:42%"></i><i style="left:78%;top:55%;animation-delay:-2s"></i><i style="left:30%;top:80%;animation-delay:-3s"></i><i style="left:62%;top:22%;animation-delay:-1s"></i></div>
 <div class="hid" aria-hidden="true"><div class="moon"></div>
 <svg class="bat t1" viewBox="0 0 60 30"><use href="#bt"/></svg><svg class="bat t2" viewBox="0 0 60 30"><use href="#bt"/></svg><svg class="bat t3" viewBox="0 0 60 30"><use href="#bt"/></svg>
@@ -106,30 +108,30 @@ button:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{
 <svg class="sp" viewBox="0 0 40 120"><line x1="20" y1="0" x2="20" y2="80" stroke="#ffffff88"/><g stroke="#ff3d9a" stroke-width="3" fill="none"><path d="M12 92l-10-8M12 98l-10 2M28 92l10-8M28 98l10 2"/></g><circle cx="20" cy="95" r="11" fill="#2b1263" stroke="#ff3d9a" stroke-width="2"/><circle cx="16" cy="92" r="2" fill="#c6ff3d"/><circle cx="24" cy="92" r="2" fill="#c6ff3d"/></svg>
 <div class="gr"></div><div class="tb" style="left:22%"></div><div class="tb" style="left:30%;height:20px"></div>
 <svg class="pump" viewBox="0 0 80 70"><ellipse cx="40" cy="44" rx="34" ry="24" fill="#e8620c"/><ellipse cx="26" cy="44" rx="14" ry="24" fill="#ff7a1a"/><ellipse cx="54" cy="44" rx="14" ry="24" fill="#ff7a1a"/><ellipse cx="40" cy="44" rx="10" ry="24" fill="#ff9340"/><rect x="36" y="9" width="8" height="14" rx="3" fill="#4fae2c"/><g class="gl"><path d="M24 40l10-5-2 11zM56 40l-10-5 2 11zM26 52q14 12 28 0l-5-3-4 5-5-5-5 5-4-5z" fill="#ffd54a"/></g></svg>
-<div class="ttl">Sábado<br>Assombrado</div></div>
+<div class="ttl">Sábado<br>Letivo</div></div>
 <div class="beam"></div>
 <div class="hint">Passe o dedo para acender a lanterna</div>
 </div>
 
-<div class="tags"><span class="tag hot">Sábado letivo</span><span class="tag">7h30 às 12h45</span><span class="tag">Venha fantasiado</span></div>
+<div class="tags"><span class="tag hot">Sábado 31/10</span><span class="tag">7h30 às 12h45</span><span class="tag">Venha fantasiado</span></div>
 <div class="now glass" aria-live="polite" id="agora"></div>
 </header>
 
 <section id="programa">
 <h2>Programação</h2>
 <p class="sub">Duas rodadas, quatro opções em cada. Escolha uma por bloco.</p>
+<div class="break" style="margin:0 0 14px">7h30 · Acolhida geral</div>
 <div class="seg" role="tablist" aria-label="Blocos"><button role="tab" data-b="1" aria-selected="true">Bloco 1 · 7h45</button><button role="tab" data-b="2" aria-selected="false">Bloco 2 · 9h30</button></div>
 <div id="lista"></div>
 </section>
 
 <section id="concursos">
 <h2>Concursos</h2>
-<p class="sub">Três chances de levar o título.</p>
-<div class="cont" style="--c:#ff7a1a"><h3>👗 Desfile de fantasias</h3><p>11h15 no Foyer. Categorias para estudantes e professores, com dois prêmios: Escolha do Júri e Escolha do Público.</p></div>
-<div class="cont" style="--c:#c6ff3d"><h3>🎞️ Cartaz de terror</h3><p>Criado na oficina de cartazes e exposto no Foyer, com voto do público.</p></div>
-<div class="cont" style="--c:#ffc93c"><h3>🏚️ Casa assombrada em miniatura</h3><p>Montada na oficina de papelaria e exposta ao lado dos cartazes.</p></div>
-<div class="cont" style="--c:#8b5cff"><h3>🎬 Melhor curta</h3><p>A plateia do Cine Susto vota no mais assustador.</p></div>
-<a class="go" href="https://claude.ai/artifact/8z1F8i6QcQTHpJQmAK9sHj">Ir para a votação</a>
+<p class="sub">11h15 no Foyer, com todas as turmas. Votam o júri de professores e o público.</p>
+<div class="cont" style="--c:#ff7a1a"><h3>👗 Fantasia individual</h3><p>Apresente o seu personagem na passarela do Foyer.</p></div>
+<div class="cont" style="--c:#ff3d9a"><h3>🧟 Fantasia em grupo</h3><p>Em dupla, trio ou turma. Vale combinar uma entrada coletiva.</p></div>
+<div class="cont" style="--c:#ffc93c"><h3>🎨 Melhor cartaz ou ilustração</h3><p>Os trabalhos da oficina ficam expostos no Foyer.</p></div>
+<a class="go" href="votacao.html">Ir para a votação</a>
 </section>
 
 <section id="passe">
@@ -144,37 +146,27 @@ button:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{
 
 <script>
 var A=[
-{id:1,b:1,n:"Cine Susto: Curtas",e:"🎬",c:"#8b5cff",l:"Auditório",d:"Sessão de curtas de animação de terror, com quiz no final para ver quem prestou atenção.",i:["Curtas de animação","Quiz dos curtas"]},
-{id:2,b:1,n:"Contos e Dramatização",e:"🔦",c:"#3de0ff",l:"Sala de aula",d:"Contos de terror lidos no escuro e encenados pela turma, com lanternas e efeitos de som.",i:["Leitura em voz alta","Dramatização","Efeitos sonoros"]},
-{id:3,b:1,n:"Escola de Terror",e:"📱",c:"#c6ff3d",l:"Sala de aula",d:"Jogo de investigação no celular. Escaneie os QR Codes escondidos na sala e descubra o que aconteceu na escola.",i:["QR Codes pela sala","Equipes","Pistas e enigmas"]},
-{id:4,b:1,n:"Oficina: Cartaz de Terror",e:"🎞️",c:"#ffc93c",l:"Sala de criação",d:"Sorteie palavras, forme o título de um filme de terror e crie o cartaz seguindo as regras do gênero.",i:["Sorteio de palavras","Regras do gênero","Concurso de cartazes"]},
-{id:5,b:2,n:"Cine Susto: Filme",e:"📽️",c:"#8b5cff",l:"Auditório",d:"Uma animação sombria completa, com quiz no final e votação do público.",i:["Animação completa","Quiz do filme","Votação"]},
-{id:6,b:2,n:"Fábrica de Contos",e:"✍️",c:"#3de0ff",l:"Sala de aula",d:"História coletiva com cartas sorteadas: cada pessoa continua o conto e, no fim, a turma encena.",i:["Cartas de história","Conto em equipe","Mini dramatização"]},
-{id:7,b:2,n:"Escola de Terror 2",e:"📱",c:"#c6ff3d",l:"Sala de aula",d:"Novo caso para investigar com o celular, e rodada de Lobisomem enquanto a equipe espera.",i:["Novo caso","Lobisomem","QR Codes pela sala"]},
-{id:8,b:2,n:"Oficina: Casa Assombrada",e:"🏚️",c:"#ff7a1a",l:"Sala de criação",d:"Monte uma casa assombrada em miniatura com cartolina, papel crepom e caixas.",i:["Cartolina e crepom","Em equipe","Exposição e concurso"]}
-];
-var A0=[
-{id:1,b:1,n:"Cine Susto",e:"🎬",c:"#8b5cff",l:"Auditório",d:"Sessão de curtas de animação de terror, com votação do mais assustador.",i:["Curtas de animação","Votação da plateia"]},
-{id:2,b:1,n:"Contos no Escuro",e:"🔦",c:"#3de0ff",l:"Sala escura",d:"Luz apagada, lanternas e contos de terror em voz baixa. Quem quiser pode ler.",i:["Leitura em voz alta","Termine a história"]},
-{id:3,b:1,n:"Arcade de Terror",e:"👾",c:"#c6ff3d",l:"Lab. de Informática",d:"Carrossel de estações com jogos de terror, trocando a cada 10 minutos.",i:["Jogos curtos de terror","Gartic de Halloween","Lobisomem","O PC assombrado"]},
-{id:4,b:1,n:"Caça ao Tesouro",e:"🗝️",c:"#ff3d9a",l:"Pela escola toda",d:"Equipes seguem enigmas e pistas escondidas pelo prédio até achar o tesouro.",i:["Equipes de 4 a 5","Enigmas e pistas"]},
-{id:5,b:2,n:"Cine Susto 2",e:"📽️",c:"#8b5cff",l:"Auditório",d:"Sessão de filme de terror, escolhido pelos professores pela classificação.",i:["Filme de terror","Pipoca"]},
-{id:6,b:2,n:"Título do Terror",e:"🎞️",c:"#ffc93c",l:"Sala de criação",d:"Sorteie palavras de terror e escola, forme o título de um filme e crie o cartaz.",i:["Sorteio de palavras","Cartaz e sinopse","Exposição no Foyer"]},
-{id:7,b:2,n:"Arcade de Terror 2",e:"👾",c:"#c6ff3d",l:"Lab. de Informática",d:"Nova rodada do carrossel, com jogos diferentes e torneio relâmpago.",i:["Novos jogos","Torneio relâmpago","Mímica de monstros"]},
-{id:8,b:2,n:"Estúdio de Monstros",e:"💄",c:"#ff7a1a",l:"Foyer",d:"Maquiagem de efeitos, retoques e cabine de fotos para chegar pronto ao desfile.",i:["Cicatriz falsa","Cabine de fotos"]}
+{id:1,b:1,v:40,n:"Cine Susto: Curtas",e:"🎬",c:"#8b5cff",l:"Auditório",d:"Curtas de animação sombrios ou de suspense, com debate depois de cada um e um Kahoot no final.",i:["Vincent","Alma","Diário de Areia","The House"]},
+{id:2,b:1,v:20,n:"Contos e Microcontos com Dramatização",e:"📖",c:"#3de0ff",l:"Lab. de Hospedagem ou sala",d:"Leitura dramática e encenação de contos de suspense, com expressões, sons e luz.",i:["Lygia Fagundes Telles","Edgar Allan Poe","Machado de Assis"]},
+{id:3,b:1,v:20,n:"Jogos Temáticos",e:"🎮",c:"#c6ff3d",l:"Sala com notebooks",d:"Gartic de Halloween e outros jogos temáticos para jogar em turma.",i:["Gartic","Caça ao tesouro","RPG"]},
+{id:4,b:1,v:20,n:"Oficina de Cartazes e Ilustrações",e:"🎨",c:"#ffc93c",l:"Laboratório 306",d:"Crie cartazes e ilustrações de terror, suspense ou inspirados no expressionismo, no digital ou no manual.",i:["Terror e suspense","Expressionismo","Exposição no Foyer"]},
+{id:5,b:2,v:40,n:"Cine Susto: Filme",e:"📽️",c:"#8b5cff",l:"Auditório",d:"Uma animação completa, no estilo de Coraline, A Noiva Cadáver ou A Casa Monstro.",i:["Animação completa"]},
+{id:6,b:2,v:20,n:"Contos e Microcontos 2",e:"🕯️",c:"#3de0ff",l:"Lab. de Hospedagem ou sala",d:"Outros contos, com leitura dramática e encenação. Dá para fazer as duas oficinas sem repetir história.",i:["Shirley Jackson","Bernardo Guimarães","Lendas urbanas"]},
+{id:7,b:2,v:20,n:"Jogos Temáticos 2",e:"🎲",c:"#c6ff3d",l:"Sala com notebooks",d:"Nova rodada, com outros jogos e desafios temáticos.",i:["Gartic","Tabuleiro","RPG"]},
+{id:8,b:2,v:20,n:"Oficina Backstage",e:"🎭",c:"#ff7a1a",l:"Sala EMED ou Foyer",d:"Para quem vai concorrer no desfile: vista a fantasia, faça a maquiagem e ensaie a entrada.",i:["Fantasia","Maquiagem","Ensaio"]}
 ];
 var cur=1,pick={1:0,2:0};
 try{pick=JSON.parse(localStorage.getItem("hw4")||"")||pick}catch(e){}
 function save(){try{localStorage.setItem("hw4",JSON.stringify(pick))}catch(e){}}
 function list(){var h="";A.filter(function(x){return x.b==cur}).forEach(function(x){
-h+='<article class="card" style="--c:'+x.c+'"><div class="big" aria-hidden="true">'+x.e+'</div><h3>'+x.n+'</h3><p>'+x.d+'</p><div class="items">'+x.i.map(function(t){return '<span>'+t+'</span>'}).join("")+'</div><div class="meta"><span>'+x.l+'</span><span>2 professores</span><span>30 vagas</span></div><button class="pick" data-id="'+x.id+'" aria-pressed="'+(pick[cur]==x.id)+'">'+(pick[cur]==x.id?"Escolhido":"Quero esta")+'</button></article>'});
+h+='<article class="card" style="--c:'+x.c+'"><div class="big" aria-hidden="true">'+x.e+'</div><h3>'+x.n+'</h3><p>'+x.d+'</p><div class="items">'+x.i.map(function(t){return '<span>'+t+'</span>'}).join("")+'</div><div class="meta"><span>'+x.l+'</span><span>2 professores</span><span>'+x.v+' vagas</span></div><button class="pick" data-id="'+x.id+'" aria-pressed="'+(pick[cur]==x.id)+'">'+(pick[cur]==x.id?"Escolhido":"Quero esta")+'</button></article>'});
 h+='<div class="break">'+(cur==1?"9h10 · Intervalo":"11h00 · Hora de se arrumar para o desfile")+'</div>';
 document.getElementById("lista").innerHTML=h}
 function passe(){function f(b){var x=A.filter(function(y){return y.id==pick[b]})[0];return x?x.n+" · "+x.l:"Ainda não escolhido"}
-document.getElementById("meu").innerHTML='<h3>Sábado Assombrado</h3><p>Bloco 1: '+f(1)+'</p><p>Bloco 2: '+f(2)+'</p><p>11h15: Desfile no Foyer</p>'}
+document.getElementById("meu").innerHTML='<h3>Sábado Letivo</h3><p>Bloco 1: '+f(1)+'</p><p>Bloco 2: '+f(2)+'</p><p>11h15: Desfile no Foyer</p>'}
 function now(sim){var m=sim!=null?sim:new Date().getHours()*60+new Date().getMinutes(),t,s,p=0;
 if(m<450||m>765){t="Fora do horário";s="Use a prévia para ver como fica no evento."}
-else if(m<465){t="Abertura";s="Auditório · 7h30";p=5}
+else if(m<465){t="Acolhida";s="Acolhida geral · 7h30";p=5}
 else if(m<550){t="Bloco 1";s="Escolha a sua atividade";p=(m-465)/85*100}
 else if(m<570){t="Intervalo";s="Hora do lanche";p=100}
 else if(m<660){t="Bloco 2";s="Última rodada";p=(m-570)/90*100}
