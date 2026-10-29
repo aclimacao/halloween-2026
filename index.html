@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sábado Letivo · Senac Aclimação</title>
+<title>Sábado Letivo: Halloween · Senac Aclimação</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -17,9 +17,9 @@ h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",sans-serif;margin:0;line-he
 .b1{width:300px;height:300px;background:var(--lar);top:-80px;left:-80px}.b2{width:280px;height:280px;background:var(--rox);top:40%;right:-120px;animation-delay:-5s}.b3{width:260px;height:260px;background:var(--rosa);bottom:-80px;left:10%;animation-delay:-9s}
 @keyframes drift{to{transform:translate(50px,40px) scale(1.2)}}
 main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:18px 18px 110px}
-.lamp{position:relative;height:360px;margin:6px -18px 0;overflow:hidden;isolation:isolate;touch-action:none;cursor:crosshair;--x:50%;--y:50%}
+.lamp{position:relative;height:380px;margin:6px -18px 0;overflow:hidden;isolation:isolate;touch-action:none;cursor:crosshair;--x:50%;--y:50%}
 .lamp .dim{position:absolute;inset:0;display:grid;place-items:center;text-align:center;opacity:.42}
-.hero .lamp h1,.ttl{margin:0;font-weight:800;font-size:clamp(2.6rem,13vw,4.6rem);letter-spacing:-.04em;line-height:.95;background:linear-gradient(100deg,var(--lar),var(--rosa),var(--rox),var(--lar));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 8s linear infinite}
+.hero .lamp h1,.ttl{margin:0;font-weight:800;font-size:clamp(2.4rem,12vw,4.3rem);letter-spacing:-.04em;line-height:.95;background:linear-gradient(100deg,var(--lar),var(--rosa),var(--rox),var(--lar));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 8s linear infinite}
 .eyes i{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--lima);box-shadow:14px 0 0 var(--lima);animation:bk 5s infinite;opacity:.8}
 @keyframes bk{0%,90%,100%{opacity:.8}93%,97%{opacity:0}}
 .hid{position:absolute;inset:0;overflow:hidden;background:radial-gradient(circle at 18% 95%,#ff7a1add,transparent 48%),radial-gradient(circle at 88% 75%,#ff3d9add,transparent 48%),radial-gradient(circle at 60% 5%,#8b5cffdd,transparent 52%),linear-gradient(#150a33,#2b1263);-webkit-mask-image:radial-gradient(circle 115px at var(--x) var(--y),#000 0,#000 55%,transparent 100%);mask-image:radial-gradient(circle 115px at var(--x) var(--y),#000 0,#000 55%,transparent 100%)}
@@ -28,7 +28,7 @@ main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:18px 18px
 .moon{right:7%;top:20px;width:76px;height:76px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff6d6,#ffd98a 70%);box-shadow:0 0 50px 14px #ffb34766}
 .bat{fill:#12082a;left:-50px;width:34px;animation:fly 10s linear infinite}
 .bat path{transform-origin:center;animation:fl .25s ease-in-out infinite alternate}
-.t1{top:30px}.t2{top:290px;animation-delay:-4s;width:26px}.t3{top:70px;animation-delay:-7s;width:28px}
+.t1{top:30px}.t2{top:310px;animation-delay:-4s;width:26px}.t3{top:70px;animation-delay:-7s;width:28px}
 @keyframes fly{to{transform:translateX(110vw)}}@keyframes fl{to{transform:scaleY(.55)}}
 .gh{width:50px;filter:drop-shadow(0 0 10px #fffa);animation:bob 5s ease-in-out infinite}
 .g1{left:6%;top:26px}.g2{left:40%;bottom:74px;width:38px;animation-delay:-2.5s}
@@ -44,7 +44,6 @@ main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:18px 18px
 .hint{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:.8rem;color:var(--mut);z-index:4;pointer-events:none;transition:opacity .5s}
 .lamp.used .hint{opacity:0}
 .hero .tags{position:relative;z-index:5;margin-top:-30px}
-.hero h1{font-weight:800;font-size:clamp(3.2rem,16vw,5.8rem);letter-spacing:-.04em;margin:22px 0 14px;background:linear-gradient(100deg,var(--lar),var(--rosa),var(--rox),var(--lar));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 8s linear infinite}
 @keyframes flow{to{background-position:300% 0}}
 .top{font-weight:700;color:var(--mut);font-size:.9rem;margin-top:16px}
 .tags{display:flex;gap:8px;flex-wrap:wrap}
@@ -75,6 +74,7 @@ h2::after{content:"";display:block;height:4px;width:56px;margin-top:8px;border-r
 .meta span{background:#00000050;border-radius:99px;padding:4px 12px;font-size:.85rem;font-weight:700}
 .items{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
 .items span{border:1px dashed var(--c);border-radius:12px;padding:4px 10px;font-size:.88rem}
+.note{margin:10px 0 0;padding:8px 12px;border-radius:12px;background:#ffffff14;font-size:.88rem;font-weight:700}
 .pick{font:inherit;font-weight:800;width:100%;margin-top:8px;padding:12px;border-radius:16px;border:2px solid var(--c);background:transparent;color:var(--tx);cursor:pointer}
 .pick[aria-pressed=true]{background:var(--c);color:#12082a}
 .break{margin-top:16px;padding:12px 18px;text-align:center;color:var(--mut);border-radius:16px;border:1px dashed #ffffff40}
@@ -86,6 +86,7 @@ h2::after{content:"";display:block;height:4px;width:56px;margin-top:8px;border-r
 nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:9;display:flex;gap:2px;padding:6px;border-radius:99px;background:#1a0f33ee;backdrop-filter:blur(14px);border:1px solid #ffffff30;box-shadow:0 10px 40px #000a}
 nav a{color:var(--tx);text-decoration:none;font-weight:700;font-size:.85rem;padding:10px 12px;border-radius:99px}
 details{margin-top:10px;padding:12px 16px}summary{cursor:pointer;font-weight:700}
+details p{margin:8px 0 0}details ul{margin:8px 0 0;padding-left:20px}details li{margin:6px 0}
 footer{text-align:center;color:var(--mut);padding:40px 0 10px;font-size:.85rem}
 button:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid #fff;outline-offset:2px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
@@ -100,7 +101,7 @@ button:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{
 <header class="hero">
 <div class="top">Ensino Médio e Técnico · Senac Aclimação</div>
 <div class="lamp" id="lamp">
-<div class="dim"><h1>Sábado<br>Letivo</h1></div>
+<div class="dim"><h1>Sábado<br>Letivo:<br>Halloween</h1></div>
 <div class="eyes" aria-hidden="true"><i style="left:12%;top:42%"></i><i style="left:78%;top:55%;animation-delay:-2s"></i><i style="left:30%;top:80%;animation-delay:-3s"></i><i style="left:62%;top:22%;animation-delay:-1s"></i></div>
 <div class="hid" aria-hidden="true"><div class="moon"></div>
 <svg class="bat t1" viewBox="0 0 60 30"><use href="#bt"/></svg><svg class="bat t2" viewBox="0 0 60 30"><use href="#bt"/></svg><svg class="bat t3" viewBox="0 0 60 30"><use href="#bt"/></svg>
@@ -108,71 +109,98 @@ button:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{
 <svg class="sp" viewBox="0 0 40 120"><line x1="20" y1="0" x2="20" y2="80" stroke="#ffffff88"/><g stroke="#ff3d9a" stroke-width="3" fill="none"><path d="M12 92l-10-8M12 98l-10 2M28 92l10-8M28 98l10 2"/></g><circle cx="20" cy="95" r="11" fill="#2b1263" stroke="#ff3d9a" stroke-width="2"/><circle cx="16" cy="92" r="2" fill="#c6ff3d"/><circle cx="24" cy="92" r="2" fill="#c6ff3d"/></svg>
 <div class="gr"></div><div class="tb" style="left:22%"></div><div class="tb" style="left:30%;height:20px"></div>
 <svg class="pump" viewBox="0 0 80 70"><ellipse cx="40" cy="44" rx="34" ry="24" fill="#e8620c"/><ellipse cx="26" cy="44" rx="14" ry="24" fill="#ff7a1a"/><ellipse cx="54" cy="44" rx="14" ry="24" fill="#ff7a1a"/><ellipse cx="40" cy="44" rx="10" ry="24" fill="#ff9340"/><rect x="36" y="9" width="8" height="14" rx="3" fill="#4fae2c"/><g class="gl"><path d="M24 40l10-5-2 11zM56 40l-10-5 2 11zM26 52q14 12 28 0l-5-3-4 5-5-5-5 5-4-5z" fill="#ffd54a"/></g></svg>
-<div class="ttl">Sábado<br>Letivo</div></div>
+<div class="ttl">Sábado<br>Letivo:<br>Halloween</div></div>
 <div class="beam"></div>
 <div class="hint">Passe o dedo para acender a lanterna</div>
 </div>
 
-<div class="tags"><span class="tag hot">Sábado 31/10</span><span class="tag">7h30 às 12h45</span><span class="tag">Venha fantasiado</span></div>
+<div class="tags"><span class="tag hot">Sábado 31/10</span><span class="tag">8h às 12h</span><span class="tag">Fantasia opcional</span></div>
 <div class="now glass" aria-live="polite" id="agora"></div>
 </header>
 
 <section id="programa">
 <h2>Programação</h2>
-<p class="sub">Duas rodadas, quatro opções em cada. Escolha uma por bloco.</p>
-<div class="break" style="margin:0 0 14px">7h30 · Acolhida geral</div>
-<div class="seg" role="tablist" aria-label="Blocos"><button role="tab" data-b="1" aria-selected="true">Bloco 1 · 7h45</button><button role="tab" data-b="2" aria-selected="false">Bloco 2 · 9h30</button></div>
+<p class="sub">Dois blocos de oficinas, com quatro opções em cada. Escolha uma por bloco e vá direto para a sala: a acolhida acontece lá, nos primeiros minutos.</p>
+<div class="seg" role="tablist" aria-label="Blocos"><button role="tab" data-b="1" aria-selected="true">Bloco 1 · 8h00</button><button role="tab" data-b="2" aria-selected="false">Bloco 2 · 9h30</button></div>
 <div id="lista"></div>
+<div class="card" style="--c:#ff3d9a">
+<div class="big" aria-hidden="true">🏆</div>
+<h3>Desfile, Votação e Premiação</h3>
+<p>Todas as turmas descem para o Foyer. Desfile de fantasias, votação do público e revelação dos vencedores.</p>
+<div class="meta"><span>Foyer</span><span>10h50 às 12h00</span><span>Todas as turmas</span></div>
+<div class="note">Todo mundo vota. Dá para concorrer em mais de uma categoria.</div>
+</div>
 </section>
 
 <section id="concursos">
 <h2>Concursos</h2>
-<p class="sub">11h15 no Foyer, com todas as turmas. Votam o júri de professores e o público.</p>
+<p class="sub">10h50 no Foyer, com todas as turmas. A premiação é por votação do público: todo mundo vota, e você pode concorrer em mais de uma categoria.</p>
 <div class="cont" style="--c:#ff7a1a"><h3>👗 Fantasia individual</h3><p>Apresente o seu personagem na passarela do Foyer.</p></div>
 <div class="cont" style="--c:#ff3d9a"><h3>🧟 Fantasia em grupo</h3><p>Em dupla, trio ou turma. Vale combinar uma entrada coletiva.</p></div>
-<div class="cont" style="--c:#ffc93c"><h3>🎨 Melhor cartaz ou ilustração</h3><p>Os trabalhos da oficina ficam expostos no Foyer.</p></div>
+<div class="cont" style="--c:#ffc93c"><h3>🎨 Melhor cartaz ou ilustração</h3><p>Os trabalhos da oficina serão fotografados e publicados aqui no site, para o público votar.</p></div>
+<div class="cont" style="--c:#3de0ff"><h3>📸 Galeria de cartazes e ilustrações</h3><p>As fotos dos trabalhos aparecem aqui depois da oficina.</p></div>
 <a class="go" href="votacao.html">Ir para a votação</a>
 </section>
 
 <section id="passe">
 <h2>Meu passe</h2>
 <div class="pass" id="meu"></div>
-<details class="glass"><summary>Preciso me fantasiar?</summary><p>Não. Dá para participar de tudo sem fantasia, e a Caça ao Tesouro e o Arcade não têm nada de sobrenatural.</p></details>
-<details class="glass"><summary>O que levar?</summary><p>Fantasia, garrafa de água, lanche e o celular carregado.</p></details>
+<details class="glass"><summary>Preciso me fantasiar?</summary>
+<p>Não. A fantasia é opcional e dá para participar de tudo sem ela. Se você for se fantasiar, pense na segurança:</p>
+<ul>
+<li><b>Nada cortante ou pontiagudo.</b> Nada de facas, tesouras, espadas ou machados de verdade. Acessórios devem ser de papelão, espuma ou plástico mole, e claramente de brinquedo.</li>
+<li><b>Sem armas realistas.</b> Réplicas que pareçam de verdade não entram, mesmo de brinquedo.</li>
+<li><b>Enxergar e respirar bem.</b> Máscaras e capuzes não podem tapar os olhos, o nariz nem a boca, nem atrapalhar a visão lateral.</li>
+<li><b>Fácil de andar.</b> Evite barras compridas que arrastam, saltos altos e calçados soltos. Você vai subir e descer escadas e se deslocar até o Foyer.</li>
+<li><b>Nada de fogo.</b> Sem velas, tochas, fogos ou materiais inflamáveis.</li>
+<li><b>Maquiagem segura.</b> Use produtos próprios para a pele e teste antes, para evitar alergias. Não vale tinta comum, cola forte nem lentes de contato decorativas.</li>
+<li><b>Sem sujeira.</b> Evite glitter solto, confete, tinta ou sangue falso que manche, e sprays.</li>
+<li><b>Respeito em primeiro lugar.</b> Fantasias que ofendam pessoas, culturas, religiões ou tragédias reais, ou que usem símbolos de ódio, não serão aceitas.</li>
+<li><b>Dá para vestir sozinho.</b> Escolha uma fantasia que você consegue vestir e tirar sem ajuda, e confortável para ficar a manhã toda.</li>
+</ul>
+<p>Na dúvida sobre algum item, pergunte a um professor antes do desfile.</p>
+</details>
+<details class="glass"><summary>O que levar?</summary>
+<ul>
+<li>Fantasia (opcional)</li>
+<li>Garrafa de água</li>
+<li>Lanche</li>
+<li>Celular carregado, para a votação</li>
+</ul>
+</details>
 </section>
-<footer>Senac Aclimação · Ensino Médio 2026<br>Protótipo de layout</footer>
+<footer>Senac Aclimação · Ensino Médio e Técnico 2026<br>Sábado Letivo: Halloween</footer>
 </main>
 <nav aria-label="Seções"><a href="#programa">Programa</a><a href="#concursos">Concursos</a><a href="#passe">Passe</a></nav>
 
 <script>
 var A=[
-{id:1,b:1,v:40,n:"Cine Susto: Curtas",e:"🎬",c:"#8b5cff",l:"Auditório",d:"Curtas de animação sombrios ou de suspense, com debate depois de cada um e um Kahoot no final.",i:["Vincent","Alma","Diário de Areia","The House"]},
-{id:2,b:1,v:20,n:"Contos e Microcontos com Dramatização",e:"📖",c:"#3de0ff",l:"Lab. de Hospedagem ou sala",d:"Leitura dramática e encenação de contos de suspense, com expressões, sons e luz.",i:["Lygia Fagundes Telles","Edgar Allan Poe","Machado de Assis"]},
-{id:3,b:1,v:20,n:"Jogos Temáticos",e:"🎮",c:"#c6ff3d",l:"Sala com notebooks",d:"Gartic de Halloween e outros jogos temáticos para jogar em turma.",i:["Gartic","Caça ao tesouro","RPG"]},
-{id:4,b:1,v:20,n:"Oficina de Cartazes e Ilustrações",e:"🎨",c:"#ffc93c",l:"Laboratório 306",d:"Crie cartazes e ilustrações de terror, suspense ou inspirados no expressionismo, no digital ou no manual.",i:["Terror e suspense","Expressionismo","Exposição no Foyer"]},
-{id:5,b:2,v:40,n:"Cine Susto: Filme",e:"📽️",c:"#8b5cff",l:"Auditório",d:"Uma animação completa, no estilo de Coraline, A Noiva Cadáver ou A Casa Monstro.",i:["Animação completa"]},
-{id:6,b:2,v:20,n:"Contos e Microcontos 2",e:"🕯️",c:"#3de0ff",l:"Lab. de Hospedagem ou sala",d:"Outros contos, com leitura dramática e encenação. Dá para fazer as duas oficinas sem repetir história.",i:["Shirley Jackson","Bernardo Guimarães","Lendas urbanas"]},
-{id:7,b:2,v:20,n:"Jogos Temáticos 2",e:"🎲",c:"#c6ff3d",l:"Sala com notebooks",d:"Nova rodada, com outros jogos e desafios temáticos.",i:["Gartic","Tabuleiro","RPG"]},
-{id:8,b:2,v:20,n:"Oficina Backstage",e:"🎭",c:"#ff7a1a",l:"Sala EMED ou Foyer",d:"Para quem vai concorrer no desfile: vista a fantasia, faça a maquiagem e ensaie a entrada.",i:["Fantasia","Maquiagem","Ensaio"]}
+{id:1,b:1,t:"8h00 às 9h10",n:"Cine Susto: Curtas",e:"🎬",c:"#8b5cff",l:"Auditório",d:"Curtas de animação sombrios ou de suspense, com debate depois de cada um e um Kahoot no final.",i:["Vincent","Alma","Diário de Areia","The House"],o:"Os curtas do Bloco 2 são diferentes. Dá para ver os dois blocos sem repetir nada."},
+{id:2,b:1,t:"8h00 às 9h10",n:"Contos e Microcontos com Dramatização",e:"📖",c:"#3de0ff",l:"Lab. de Hospedagem 204",d:"Leitura dramática e encenação de contos de suspense, com expressões, sons e luz.",i:["Lygia Fagundes Telles","Edgar Allan Poe","Machado de Assis"],o:"Os contos do Bloco 2 são diferentes. Dá para fazer as duas oficinas sem repetir história."},
+{id:3,b:1,t:"8h00 às 9h10",n:"Jogos Temáticos",e:"🎮",c:"#c6ff3d",l:"Sala EMED 405",d:"Gartic de Halloween e outros jogos temáticos para jogar em turma.",i:["Gartic","Caça ao tesouro","RPG"]},
+{id:4,b:1,t:"8h00 às 9h10",n:"Oficina de Cartazes e Ilustrações",e:"🎨",c:"#ffc93c",l:"Laboratório 306",d:"Crie cartazes e ilustrações de filmes de terror e de expressionismo, no digital ou no manual. Os trabalhos serão fotografados e publicados aqui no site para votação.",i:["Terror e suspense","Expressionismo","Fotos no site"]},
+{id:5,b:2,t:"9h30 às 10h40",n:"Cine Susto: Curtas 2",e:"📽️",c:"#8b5cff",l:"Auditório",d:"Outra seleção de curtas de animação, com debate depois de cada um.",i:["Seleção nova","Debate"],o:"Todos os curtas são diferentes dos do Bloco 1."},
+{id:6,b:2,t:"9h30 às 10h40",n:"Contos e Microcontos 2",e:"🕯️",c:"#3de0ff",l:"Lab. de Hospedagem 204",d:"Outros contos de terror e suspense, com leitura dramática e encenação.",i:["Shirley Jackson","Bernardo Guimarães","Lendas urbanas"],o:"Os contos são diferentes dos do Bloco 1."},
+{id:7,b:2,t:"9h30 às 10h40",n:"Jogos Temáticos 2",e:"🎲",c:"#c6ff3d",l:"Sala EMED 405",d:"Nova rodada, com outros jogos e desafios temáticos.",i:["Gartic","Tabuleiro","RPG"]},
+{id:8,b:2,t:"9h30 às 10h40",n:"Oficina Backstage",e:"🎭",c:"#ff7a1a",l:"Laboratório de Beleza 303",d:"Para quem vai concorrer no desfile: vista a fantasia, faça a maquiagem e ensaie a entrada.",i:["Fantasia","Maquiagem","Ensaio"]}
 ];
 var cur=1,pick={1:0,2:0};
-try{pick=JSON.parse(localStorage.getItem("hw4")||"")||pick}catch(e){}
-function save(){try{localStorage.setItem("hw4",JSON.stringify(pick))}catch(e){}}
+try{pick=JSON.parse(localStorage.getItem("hw5")||"")||pick}catch(e){}
+function save(){try{localStorage.setItem("hw5",JSON.stringify(pick))}catch(e){}}
 function list(){var h="";A.filter(function(x){return x.b==cur}).forEach(function(x){
-h+='<article class="card" style="--c:'+x.c+'"><div class="big" aria-hidden="true">'+x.e+'</div><h3>'+x.n+'</h3><p>'+x.d+'</p><div class="items">'+x.i.map(function(t){return '<span>'+t+'</span>'}).join("")+'</div><div class="meta"><span>'+x.l+'</span><span>2 professores</span><span>'+x.v+' vagas</span></div><button class="pick" data-id="'+x.id+'" aria-pressed="'+(pick[cur]==x.id)+'">'+(pick[cur]==x.id?"Escolhido":"Quero esta")+'</button></article>'});
-h+='<div class="break">'+(cur==1?"9h10 · Intervalo":"11h00 · Hora de se arrumar para o desfile")+'</div>';
+h+='<article class="card" style="--c:'+x.c+'"><div class="big" aria-hidden="true">'+x.e+'</div><h3>'+x.n+'</h3><p>'+x.d+'</p><div class="items">'+x.i.map(function(t){return '<span>'+t+'</span>'}).join("")+'</div><div class="meta"><span>'+x.l+'</span><span>'+x.t+'</span></div>'+(x.o?'<div class="note">'+x.o+'</div>':'')+'<button class="pick" data-id="'+x.id+'" aria-pressed="'+(pick[cur]==x.id)+'">'+(pick[cur]==x.id?"Escolhido":"Quero esta")+'</button></article>'});
+h+='<div class="break">'+(cur==1?"9h10 às 9h30 · Intervalo":"10h40 às 10h50 · Deslocamento para o Foyer")+'</div>';
 document.getElementById("lista").innerHTML=h}
 function passe(){function f(b){var x=A.filter(function(y){return y.id==pick[b]})[0];return x?x.n+" · "+x.l:"Ainda não escolhido"}
-document.getElementById("meu").innerHTML='<h3>Sábado Letivo</h3><p>Bloco 1: '+f(1)+'</p><p>Bloco 2: '+f(2)+'</p><p>11h15: Desfile no Foyer</p>'}
+document.getElementById("meu").innerHTML='<h3>Sábado Letivo: Halloween</h3><p>Bloco 1 · 8h00: '+f(1)+'</p><p>Bloco 2 · 9h30: '+f(2)+'</p><p>10h50: Desfile, votação e premiação no Foyer</p>'}
 function now(sim){var m=sim!=null?sim:new Date().getHours()*60+new Date().getMinutes(),t,s,p=0;
-if(m<450||m>765){t="Fora do horário";s="Use a prévia para ver como fica no evento."}
-else if(m<465){t="Acolhida";s="Acolhida geral · 7h30";p=5}
-else if(m<550){t="Bloco 1";s="Escolha a sua atividade";p=(m-465)/85*100}
-else if(m<570){t="Intervalo";s="Hora do lanche";p=100}
-else if(m<660){t="Bloco 2";s="Última rodada";p=(m-570)/90*100}
-else if(m<675){t="Arrumação";s="Rumo ao Foyer";p=100}
-else{t="Desfile";s="Foyer · até 12h45";p=(m-675)/90*100}
-var o='<option value="">Horário real</option>';[[460,"7h40"],[500,"8h20"],[560,"9h20"],[600,"10h00"],[665,"11h05"],[700,"11h40"]].forEach(function(q){o+='<option value="'+q[0]+'"'+(sim==q[0]?" selected":"")+'>'+q[1]+'</option>'});
+if(m<480||m>=720){t="Fora do horário";s="O evento é no sábado, das 8h às 12h. Use a prévia para ver como fica.";}
+else if(m<550){t="Bloco 1";s="Acolhida na sala e mãos à obra";p=(m-480)/70*100}
+else if(m<570){t="Intervalo";s="Hora do lanche";p=(m-550)/20*100}
+else if(m<640){t="Bloco 2";s="Última rodada de oficinas";p=(m-570)/70*100}
+else if(m<650){t="Deslocamento";s="Rumo ao Foyer";p=(m-640)/10*100}
+else{t="Desfile e votação";s="Foyer · premiação até 12h";p=(m-650)/70*100}
+var o='<option value="">Horário real</option>';[[490,"8h10"],[520,"8h40"],[560,"9h20"],[600,"10h00"],[645,"10h45"],[680,"11h20"]].forEach(function(q){o+='<option value="'+q[0]+'"'+(sim==q[0]?" selected":"")+'>'+q[1]+'</option>'});
 document.getElementById("agora").innerHTML='<span class="lbl">Acontecendo agora</span><h3>'+t+'</h3><div>'+s+'</div><div class="bar"><i style="width:'+Math.min(p,100)+'%"></i></div><label>Prévia: <select id="sim" aria-label="Simular horário">'+o+'</select></label>'}
 document.addEventListener("click",function(e){var t=e.target.closest("button");if(!t)return;
 if(t.dataset.b){cur=+t.dataset.b;document.querySelectorAll(".seg button").forEach(function(b){b.setAttribute("aria-selected",b==t)});list()}
