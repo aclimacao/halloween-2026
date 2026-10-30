@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Onde está o aluno? · Consulta da equipe</title>
+<style>
+  :root{--bg:#12081f;--card:#1d1033;--line:#3a2466;--tx:#f3e9ff;--mut:#b9a6d6;--or:#ff7a1a;--lima:#c6ff3d}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx);line-height:1.4}
+  .wrap{max-width:720px;margin:0 auto;padding:16px 14px 60px}
+  h1{font-size:1.35rem;margin:0 0 2px}
+  .sub{color:var(--mut);margin:0 0 14px;font-size:.92rem}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+  label{display:block;font-size:.82rem;color:#c9b8e6;margin:10px 0 4px}
+  label:first-child{margin-top:0}
+  input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #4b2f82;background:var(--bg);color:#fff;font-size:1rem}
+  input:focus,select:focus{outline:2px solid var(--or);outline-offset:1px}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:140px}
+  button{padding:12px 16px;border:0;border-radius:10px;background:var(--or);color:#1a0b00;font-weight:800;font-size:1rem;cursor:pointer}
+  button.ghost{background:#2c1850;color:var(--tx)}
+  button:disabled{opacity:.5;cursor:default}
+  .msg{padding:10px 12px;border-radius:10px;background:#2c1850;margin-top:10px}
+  .msg.err{background:#4a1220;color:#ffc9d2}
+  .bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:4px 2px 10px;color:var(--mut);font-size:.88rem}
+  .al{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px}
+  .al .top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+  .al .nm{font-weight:800;font-size:1.05rem}
+  .tm{padding:2px 10px;border-radius:99px;background:var(--or);color:#2a1000;font-weight:800;font-size:.8rem;white-space:nowrap}
+  .bl{display:flex;gap:8px;align-items:flex-start;font-size:.93rem;margin-top:3px}
+  .bl .h{flex:0 0 74px;color:var(--mut);font-size:.82rem;padding-top:1px}
+  .bl small{color:var(--mut)}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+  .sem{color:#ff8fc1;font-weight:700}
+  .nv{background:#3a1030;border-color:#7a2a66}
+  .nv .tag{display:inline-block;padding:2px 10px;border-radius:99px;background:#ff3d9a;color:#12082a;font-weight:800;font-size:.8rem}
+  .vazio{color:var(--mut);text-align:center;padding:24px 0}
+  .hide{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎃 Onde está o aluno?</h1>
+  <p class="sub">Consulta da equipe · Sábado Letivo: Halloween · 31/10</p>
+
+  <div id="acesso" class="panel">
+    <label for="pin">PIN de consulta</label>
+    <input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN que o professor informou">
+    <div class="row" style="margin-top:12px"><div><button id="entrar" style="width:100%">Entrar</button></div></div>
+    <div id="msg"></div>
+  </div>
+
+  <div id="app" class="hide">
+    <div class="panel">
+      <label for="q">Buscar por nome</label>
+      <input id="q" type="search" autocomplete="off" placeholder="Digite parte do nome">
+      <div class="row">
+        <div><label for="turma">Turma</label><select id="turma"></select></div>
+        <div><label for="ofic">Oficina</label><select id="ofic"></select></div>
+      </div>
+    </div>
+    <div class="bar"><span id="cont"></span><span><span id="quando"></span> <button class="ghost" id="atual" style="padding:6px 12px;font-size:.85rem">Atualizar</button></span></div>
+    <div id="lista"></div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var D = null, pin = "";
+  var HORA = { 1: "8h00", 2: "9h30" };
+  var CORES = ["#00AEEF", "#EC008C", "#00A651", "#F7941D"];
+
+  function norm(s) { return String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); }
+  function cor(id) { return CORES[(Number(id) - 1) % 4]; }
+  function aviso(t) { $("msg").innerHTML = t ? '<div class="msg err">' + esc(t) + "</div>" : ""; }
+  function guardar(v) { try { if (v) sessionStorage.setItem("hw_pin_consulta", v); else sessionStorage.removeItem("hw_pin_consulta"); } catch (e) {} }
+  function lembrado() { try { return sessionStorage.getItem("hw_pin_consulta") || ""; } catch (e) { return ""; } }
+
+  var M = {};
+  function celula(id) {
+    if (id === "" || !M[id]) return '<span class="sem">ainda sem oficina</span>';
+    return '<span class="dot" style="background:' + cor(id) + '"></span><b>' + esc(M[id].nome) + "</b> <small>· " + esc(M[id].sala) + "</small>";
+  }
+
+  function opcoes() {
+    var ts = [];
+    D.alunos.forEach(function (a) { if (ts.indexOf(a.turma) < 0) ts.push(a.turma); });
+    ts.sort(function (a, b) { return a.localeCompare(b, "pt-BR", { numeric: true }); });
+    var t0 = $("turma").value, o0 = $("ofic").value;
+    $("turma").innerHTML = '<option value="">Todas as turmas</option>' + ts.map(function (t) { return '<option value="' + esc(t) + '">' + esc(t) + "</option>"; }).join("");
+    $("ofic").innerHTML = '<option value="">Todas as oficinas</option>' + D.oficinas.slice().sort(function (a, b) { return a.bloco - b.bloco || a.id - b.id; })
+      .map(function (o) { return '<option value="' + o.id + '">Bloco ' + o.bloco + " · " + esc(o.nome) + "</option>"; }).join("");
+    $("turma").value = t0; $("ofic").value = o0;
+  }
+
+  function mostrar() {
+    var q = norm($("q").value.trim()), t = $("turma").value, o = $("ofic").value;
+    var lista = D.alunos.filter(function (a) {
+      if (t && a.turma !== t) return false;
+      if (q && norm(a.nome).indexOf(q) < 0) return false;
+      if (o && String(a.b1) !== o && String(a.b2) !== o) return false;
+      return true;
+    }).sort(function (a, b) { return norm(a.nome).localeCompare(norm(b.nome)); });
+    $("cont").textContent = lista.length + " de " + D.alunos.length + " aluno(s)";
+    if (!lista.length) { $("lista").innerHTML = '<div class="vazio">Ninguém encontrado com esse filtro.</div>'; return; }
+    $("lista").innerHTML = lista.map(function (a) {
+      if (a.nv) return '<div class="al nv"><div class="top"><span class="nm">' + esc(a.nome) + '</span><span class="tm">' + esc(a.turma) + "</span></div>" +
+        '<span class="tag">Avisou que não vem</span></div>';
+      return '<div class="al"><div class="top"><span class="nm">' + esc(a.nome) + '</span><span class="tm">' + esc(a.turma) + "</span></div>" +
+        '<div class="bl"><span class="h">Bloco 1 · ' + HORA[1] + "</span><span>" + celula(a.b1) + "</span></div>" +
+        '<div class="bl"><span class="h">Bloco 2 · ' + HORA[2] + "</span><span>" + celula(a.b2) + "</span></div>" +
+        '<div class="bl"><span class="h">10h50</span><span>Foyer (desfile) ou Auditório</span></div></div>';
+    }).join("");
+  }
+
+  function carregar(silencioso) {
+    if (!silencioso) aviso("");
+    $("entrar").disabled = true; $("atual").disabled = true;
+    api("consulta", { pin: pin }).then(function (j) {
+      $("entrar").disabled = false; $("atual").disabled = false;
+      if (j.erro) {
+        guardar(""); aviso(j.erro); $("acesso").classList.remove("hide"); $("app").classList.add("hide"); return;
+      }
+      D = j; M = {}; j.oficinas.forEach(function (o) { M[o.id] = o; });
+      guardar(pin);
+      $("acesso").classList.add("hide"); $("app").classList.remove("hide");
+      opcoes(); mostrar();
+      $("quando").textContent = "atualizado às " + j.quando;
+    }).catch(function () {
+      $("entrar").disabled = false; $("atual").disabled = false;
+      if (D) $("quando").textContent = "sem conexão: dados de " + D.quando;
+      else aviso("Sem conexão com a planilha. Tente de novo.");
+    });
+  }
+
+  function entrar() {
+    pin = $("pin").value.trim();
+    if (!pin) { aviso("Digite o PIN."); return; }
+    carregar(false);
+  }
+
+  $("entrar").addEventListener("click", entrar);
+  $("pin").addEventListener("keydown", function (e) { if (e.key === "Enter") entrar(); });
+  $("atual").addEventListener("click", function () { carregar(true); });
+  ["q", "turma", "ofic"].forEach(function (id) { $(id).addEventListener(id === "q" ? "input" : "change", function () { if (D) mostrar(); }); });
+  document.addEventListener("visibilitychange", function () { if (!document.hidden && D) carregar(true); });
+
+  var p0 = lembrado();
+  if (p0) { pin = p0; $("pin").value = p0; carregar(false); }
+})();
+</script>
+</body>
+</html>

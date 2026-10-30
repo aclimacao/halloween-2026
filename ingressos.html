@@ -285,12 +285,16 @@
         '<div class="r">' + lista.length + " aluno(s)</div></div>" +
         '<table class="lt"><thead><tr><th class="n">Nº</th><th style="width:60mm">Nome</th>' +
         "<th>Bloco 1 · " + HORA[1] + "</th>" + (pres ? '<th class="p">Presença</th>' : "") +
-        "<th>Bloco 2 · " + HORA[2] + "</th>" + (pres ? '<th class="p">Presença</th>' : "") + "</tr></thead><tbody>";
+        "<th>Bloco 2 · " + HORA[2] + "</th>" + (pres ? '<th class="p">Presença</th><th style="width:46mm">Às 10h50, estava no…</th>' : "") + "</tr></thead><tbody>";
       lista.forEach(function (a, i) {
+        if (a.nv) {
+          h += '<tr><td class="n">' + (i + 1) + "</td><td>" + esc(a.nome) + '</td><td colspan="' + (pres ? 5 : 2) + '"><span class="sem">avisou que não vem</span></td></tr>';
+          return;
+        }
         h += '<tr><td class="n">' + (i + 1) + "</td><td>" + esc(a.nome) + "</td><td>" + celula(M, a.b1) + "</td>" + (pres ? '<td class="p"><span class="cx"></span></td>' : "") +
-          "<td>" + celula(M, a.b2) + "</td>" + (pres ? '<td class="p"><span class="cx"></span></td>' : "") + "</tr>";
+          "<td>" + celula(M, a.b2) + "</td>" + (pres ? '<td class="p"><span class="cx"></span></td><td><span class="cx"></span> Foyer &nbsp; <span class="cx"></span> Auditório</td>' : "") + "</tr>";
       });
-      h += '</tbody></table><div class="rod">10h50 às 12h00 · Desfile, votação e premiação · Foyer</div></div>';
+      h += '</tbody></table><div class="rod">10h50 às 12h00 · Desfile, votação e premiação · Foyer (ou atividade no Auditório)</div></div>';
       n++;
     });
     $("folhas").className = "";
@@ -302,12 +306,12 @@
   function renderAfixar() {
     var t = $("turma").value, M = ofMap(), h = "", n = 0;
     turmasDe(INS.alunos).filter(function (x) { return !t || x === t; }).forEach(function (tm) {
-      var lista = INS.alunos.filter(function (a) { return a.turma === tm; }).sort(porNome);
+      var lista = INS.alunos.filter(function (a) { return a.turma === tm && !a.nv; }).sort(porNome);
       h += '<div class="pag afx"><div class="cab"><div><h2>Turma ' + esc(tm) + '</h2><div class="d">Veja em qual oficina você está em cada bloco</div></div>' +
         '<div class="r">Sábado Letivo<br>Halloween · 31/10</div></div>' +
         '<table class="lt"><thead><tr><th>Nome</th><th>1º bloco · ' + HORA[1] + "</th><th>2º bloco · " + HORA[2] + "</th></tr></thead><tbody>";
       lista.forEach(function (a) { h += "<tr><td>" + esc(a.nome) + "</td><td>" + celula(M, a.b1) + "</td><td>" + celula(M, a.b2) + "</td></tr>"; });
-      h += '</tbody></table><div class="rod">10h50 às 12h00 · Desfile, votação e premiação · Foyer</div></div>';
+      h += '</tbody></table><div class="rod">10h50 às 12h00 · Desfile, votação e premiação · Foyer (ou atividade no Auditório, ao lado)</div></div>';
       n++;
     });
     $("folhas").className = "";
@@ -344,8 +348,10 @@
     $("imprimir").disabled = false;
     var txt = n + (m === "ingressos" ? " folha(s) de ingressos (" + TODOS.length + " no total)." : " página(s).");
     if (m !== "ingressos") {
-      un = INS.alunos.filter(function (a) { return a.b1 === "" || a.b2 === ""; }).length;
-      if (un) txt += " Atenção: " + un + " aluno(s) ainda sem oficina em algum bloco (aparecem como \"a definir\"). Use Halloween > 2. Distribuir quem não se inscreveu na planilha e carregue de novo.";
+      var nvn = INS.alunos.filter(function (a) { return a.nv; }).length;
+      if (nvn) txt += " " + nvn + " aluno(s) avisaram que não vêm" + (m === "afixar" ? " (ficam fora do quadro)." : " (aparecem marcados na chamada).");
+      un = INS.alunos.filter(function (a) { return !a.nv && (a.b1 === "" || a.b2 === ""); }).length;
+      if (un) txt +=" Atenção: " + un + " aluno(s) ainda sem oficina em algum bloco (aparecem como \"a definir\"). Use Halloween > 2. Distribuir quem não se inscreveu na planilha e carregue de novo.";
     }
     if (m === "ingressos" && location.protocol === "file:") txt += " Atenção: abra esta página pelo endereço do GitHub Pages, senão o QR não funciona.";
     aviso(txt, "ok");
