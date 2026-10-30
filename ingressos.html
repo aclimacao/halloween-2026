@@ -4,19 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Ingressos de Halloween</title>
+<title>Impressos do evento</title>
+<style id="pgstyle">@page{size:A4 portrait;margin:10mm}</style>
 <style>
+  /* Cores pensadas para impressora só com ciano, magenta e amarelo (sem tinta preta):
+     nada de preto nem cinza (saem barrentos). Textos e QR em azul-tinta (C+M), destaques em laranja (M+Y). */
+  :root{--azul:#2E3192;--roxo:#662D91;--lar:#F7941D;--ama:#FFF200;--cian:#00AEEF;--mag:#EC008C;--verde:#39B54A;--rosa:#E6F6FD}
   *{box-sizing:border-box}
   body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#12081f;color:#f3e9ff}
-  .wrap{max-width:760px;margin:0 auto;padding:20px 16px 40px}
+  .wrap{max-width:900px;margin:0 auto;padding:20px 16px 40px}
   h1{font-size:1.5rem;margin:0 0 4px}
   .sub{color:#b9a6d6;margin:0 0 18px}
   .panel{background:#1d1033;border:1px solid #3a2466;border-radius:14px;padding:16px;margin-bottom:14px}
   label{display:block;font-size:.85rem;color:#c9b8e6;margin:10px 0 4px}
-  label:first-child{margin-top:0}
   input,select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid #4b2f82;background:#12081f;color:#fff;font-size:1rem}
   .row{display:flex;gap:10px;flex-wrap:wrap}
   .row>div{flex:1;min-width:200px}
+  .chk{display:flex;align-items:center;gap:8px;margin-top:12px;color:#c9b8e6}
+  .chk input{width:auto}
   button{padding:11px 18px;border:0;border-radius:10px;background:#ff7a1a;color:#1a0b00;font-weight:700;font-size:1rem;cursor:pointer}
   button.ghost{background:#2c1850;color:#f3e9ff}
   button:disabled{opacity:.5;cursor:default}
@@ -24,80 +29,108 @@
   .msg.err{background:#4a1220;color:#ffc9d2}
   .msg.ok{background:#12381f;color:#c8f5d4}
   .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .hide{display:none!important}
   #folhas{margin-top:18px;overflow-x:auto}
+  #folhas,#folhas *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 
-  /* ---------- ingressos (95 x 55 mm, 10 por folha A4) ---------- */
+  /* ================= INGRESSOS (95 x 55 mm, 10 por folha) ================= */
   .folha{display:grid;grid-template-columns:repeat(2,95mm);grid-auto-rows:55mm;justify-content:center;background:#fff;margin:0 auto 16px;width:190mm}
-  .ing{position:relative;display:grid;grid-template-columns:1fr 31mm;overflow:hidden;background:#fffaf2;color:#1b1030;
-       border:.3mm dashed #9a8f86;border-radius:2.5mm}
-  .ing,.ing *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-
-  /* furinhos do picote */
+  .ing{position:relative;display:grid;grid-template-columns:1fr 31mm;overflow:hidden;background:#fff;color:var(--azul);
+       border:.3mm dashed var(--cian);border-radius:2.5mm}
   .ing::before,.ing::after{content:"";position:absolute;right:31mm;width:4.4mm;height:4.4mm;border-radius:50%;
-       background:#fff;border:.3mm dashed #9a8f86;transform:translateX(50%)}
+       background:#fff;border:.3mm dashed var(--cian);transform:translateX(50%)}
   .ing::before{top:-2.4mm}
   .ing::after{bottom:-2.4mm}
-
   .main{display:flex;flex-direction:column;min-width:0}
-  .band{position:relative;height:16mm;padding:2.6mm 4mm 0;background:linear-gradient(100deg,#2b1263 0%,#4a1d96 100%);overflow:hidden}
-  .band .s{font-size:6.2pt;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:#d9c8ff}
-  .band .h{font-family:"Arial Black",Impact,system-ui,sans-serif;font-size:17pt;font-weight:900;letter-spacing:.07em;line-height:1.05;color:#ff8a1f;text-transform:uppercase}
-  .band .b1,.band .b2,.band .b3{position:absolute;fill:#12081f;opacity:.9}
+  .band{position:relative;height:16mm;padding:2.6mm 4mm 0;background:var(--roxo);overflow:hidden}
+  .band .s{font-size:6.2pt;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:#fff}
+  .band .h{font-family:"Arial Black",Impact,system-ui,sans-serif;font-size:17pt;font-weight:900;letter-spacing:.07em;line-height:1.05;color:var(--ama);text-transform:uppercase}
+  .band .b1,.band .b2{position:absolute;fill:var(--lar)}
   .band .b1{width:11mm;height:5.5mm;right:3mm;top:2.5mm}
   .band .b2{width:7mm;height:3.5mm;right:6mm;top:9.5mm}
-  .band .b3{display:none}
-
   .corpo{flex:1;position:relative;padding:2.6mm 4mm 2.4mm;display:flex;flex-direction:column;min-height:0}
-  .lbl{font-size:5.8pt;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a7a99}
-  .nm{font-size:14pt;font-weight:800;line-height:1.08;margin-top:.6mm;word-break:break-word;color:#1b1030}
+  .lbl{font-size:5.8pt;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--roxo)}
+  .nm{font-size:14pt;font-weight:800;line-height:1.08;margin-top:.6mm;word-break:break-word;color:var(--azul)}
   .nm.long{font-size:11.5pt}
-  .tm{align-self:flex-start;margin-top:2mm;padding:.7mm 3mm;border-radius:10mm;background:#ff8a1f;color:#2a1000;font-size:8.5pt;font-weight:800}
-  .dt{margin-top:auto;font-size:7pt;font-weight:700;color:#4a1d96}
-  .dt small{display:block;font-weight:500;color:#6b5d7a;font-size:6.2pt;margin-top:.3mm}
+  .tm{align-self:flex-start;margin-top:2mm;padding:.7mm 3mm;border-radius:10mm;background:var(--lar);color:var(--azul);font-size:8.5pt;font-weight:800}
+  .dt{margin-top:auto;font-size:7pt;font-weight:800;color:var(--roxo)}
+  .dt small{display:block;font-weight:600;color:var(--azul);font-size:6.2pt;margin-top:.3mm}
   .ab{position:absolute;right:3.5mm;bottom:2.2mm;width:11mm;height:10mm}
-
-  .stub{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4mm;padding:2mm 2mm;
-        background:#ffe8cf;border-left:.4mm dashed #c9a36b}
-  .qrb{width:25mm;height:25mm;padding:1.3mm;background:#fff;border:.5mm solid #ff8a1f;border-radius:2.2mm}
+  .stub{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4mm;padding:2mm;
+        background:#FFF9C4;border-left:.4mm dashed var(--lar)}
+  .qrb{width:25mm;height:25mm;padding:.7mm;background:#fff;border:.5mm solid var(--lar);border-radius:2.2mm}
   .qrb svg{width:100%;height:100%;display:block}
-  .stub .cl{font-size:5.6pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#7a5a38;margin-top:.4mm}
-  .stub .cd{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14.5pt;font-weight:800;letter-spacing:.12em;line-height:1;color:#2b1263}
-  .stub .ap{font-size:5.4pt;line-height:1.15;text-align:center;color:#7a5a38}
+  .stub .cl{font-size:5.6pt;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--roxo);margin-top:.4mm}
+  .stub .cd{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14.5pt;font-weight:800;letter-spacing:.12em;line-height:1;color:var(--azul)}
+  .stub .ap{font-size:5.4pt;line-height:1.15;text-align:center;color:var(--azul);font-weight:600}
+  /* modo econômico: sem faixa roxa cheia nem fundo amarelo */
+  .eco .band{background:#fff;border-bottom:1.2mm solid var(--roxo)}
+  .eco .band .s{color:var(--azul)}
+  .eco .band .h{color:var(--roxo)}
+  .eco .band .b1,.eco .band .b2{fill:var(--roxo)}
+  .eco .stub{background:#fff}
+
+  /* ================= LISTAS ================= */
+  .pag{background:#fff;color:var(--azul);margin:0 auto 16px;padding:12mm;width:210mm;max-width:none}
+  .pag.land{width:297mm}
+  .cab{display:flex;justify-content:space-between;align-items:flex-end;gap:10mm;border-bottom:1.2mm solid var(--roxo);padding-bottom:2mm;margin-bottom:3mm}
+  .cab h2{margin:0;font-size:18pt;line-height:1.1;color:var(--roxo)}
+  .cab .d{font-size:10pt;font-weight:600}
+  .cab .r{text-align:right;font-size:9pt;font-weight:600}
+  table.lt{width:100%;border-collapse:collapse;font-size:10pt}
+  .lt thead{display:table-header-group}
+  .lt tr{page-break-inside:avoid;break-inside:avoid}
+  .lt th{background:var(--roxo);color:#fff;text-align:left;padding:1.4mm 2mm;font-size:9pt}
+  .lt td{padding:0 2mm;height:7mm;border-bottom:.25mm solid var(--cian);vertical-align:middle}
+  .lt tbody tr:nth-child(even) td{background:var(--rosa)}
+  .lt .n{width:9mm;font-weight:700;color:var(--roxo)}
+  .lt .p{width:20mm;text-align:center}
+  .lt small{font-weight:600;color:var(--roxo)}
+  .lt .sem{font-style:italic;color:var(--mag);font-weight:700}
+  .cx{display:inline-block;width:4.6mm;height:4.6mm;border:.45mm solid var(--azul);border-radius:.8mm;vertical-align:middle;background:#fff}
+  .chip{display:inline-block;width:3mm;height:3mm;border-radius:50%;margin-right:1.6mm}
+  .rod{margin-top:4mm;font-size:10pt;font-weight:700;color:var(--roxo)}
+  .vazio{padding:8mm 0;font-weight:700;color:var(--mag)}
+  /* quadro para afixar: letras maiores */
+  .afx .cab h2{font-size:30pt}
+  .afx table.lt{font-size:11.5pt}
+  .afx .lt td{height:6.6mm;font-weight:700}
+  .afx .lt th{font-size:10.5pt}
 
   @media print{
-    @page{size:A4;margin:10mm}
     body{background:#fff}
     .wrap{max-width:none;padding:0}
     .no-print{display:none!important}
     #folhas{margin:0;overflow:visible}
     .folha{margin:0;page-break-after:always;break-after:page}
     .folha:last-child{page-break-after:auto;break-after:auto}
+    .pag{margin:0;padding:0;width:auto;page-break-after:always;break-after:page}
+    .pag:last-child{page-break-after:auto;break-after:auto}
   }
 </style>
 </head>
 <body>
-<!-- desenhos usados nos ingressos -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="morcego" viewBox="0 0 64 32">
       <path d="M32 7c-2 0-3 2-3 4l-3-2 1 4C22 9 13 8 1 14c6 1 9 4 9 11 4-4 9-4 12 0 2-4 7-4 10 2 3-6 8-6 10-2 3-4 8-4 12 0 0-7 3-10 9-11-12-6-21-5-26-1l1-4-3 2c0-2-1-4-3-4z"/>
     </symbol>
     <symbol id="abobora" viewBox="0 0 48 44">
-      <path d="M24 9c1-5 4-7 8-7-1 4-3 6-5 8z" fill="#3b7d2c"/>
-      <ellipse cx="13" cy="26" rx="12" ry="16" fill="#ff7a1a"/>
-      <ellipse cx="35" cy="26" rx="12" ry="16" fill="#ff7a1a"/>
-      <ellipse cx="24" cy="26" rx="11.5" ry="17" fill="#ff9a35"/>
-      <polygon points="15,23 20,23 17.5,17" fill="#2b1263"/>
-      <polygon points="28,23 33,23 30.5,17" fill="#2b1263"/>
-      <polygon points="14,30 18,33 21,31 24,34 27,31 30,33 34,30 32,37 24,40 16,37" fill="#2b1263"/>
+      <path d="M24 9c1-5 4-7 8-7-1 4-3 6-5 8z" fill="#39B54A"/>
+      <ellipse cx="13" cy="26" rx="12" ry="16" fill="#F7941D"/>
+      <ellipse cx="35" cy="26" rx="12" ry="16" fill="#F7941D"/>
+      <ellipse cx="24" cy="26" rx="11.5" ry="17" fill="#FBB040"/>
+      <polygon points="15,23 20,23 17.5,17" fill="#662D91"/>
+      <polygon points="28,23 33,23 30.5,17" fill="#662D91"/>
+      <polygon points="14,30 18,33 21,31 24,34 27,31 30,33 34,30 32,37 24,40 16,37" fill="#662D91"/>
     </symbol>
   </defs>
 </svg>
 
 <div class="wrap">
   <div class="no-print">
-    <h1>🎃 Ingressos de Halloween</h1>
-    <p class="sub">Gera os ingressos com nome, turma, código e QR a partir da aba Alunos.</p>
+    <h1>🎃 Impressos do evento</h1>
+    <p class="sub">Ingressos, listas de chamada e quadros para afixar, tudo a partir da planilha.</p>
 
     <div class="panel">
       <div class="row">
@@ -106,14 +139,39 @@
           <input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN da aba Config">
         </div>
         <div>
+          <label for="modo">O que imprimir</label>
+          <select id="modo">
+            <option value="ingressos">Ingressos dos alunos</option>
+            <option value="oficina">Chamada por oficina (ou lista da porta da sala)</option>
+            <option value="turma">Chamada por turma</option>
+            <option value="afixar">Quadro para afixar: turma → oficinas</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div id="boxTurma">
           <label for="turma">Turma</label>
           <select id="turma" disabled><option value="">Todas</option></select>
         </div>
+        <div id="boxOfic" class="hide">
+          <label for="ofic">Oficina</label>
+          <select id="ofic" disabled><option value="">Todas</option></select>
+        </div>
+        <div id="boxEco">
+          <label for="eco">Tinta dos ingressos</label>
+          <select id="eco">
+            <option value="">Cor completa (faixa roxa)</option>
+            <option value="eco">Econômica (sem faixa cheia)</option>
+          </select>
+        </div>
       </div>
-      <label for="base">Endereço da página de inscrição (o QR aponta para ele)</label>
-      <input id="base" type="url" autocomplete="off">
+      <label class="chk" id="boxPres"><input type="checkbox" id="pres" checked> Incluir coluna de presença (desmarque para a lista da porta)</label>
+      <div id="boxBase">
+        <label for="base">Endereço da página de inscrição (o QR aponta para ele)</label>
+        <input id="base" type="url" autocomplete="off">
+      </div>
       <div class="acts">
-        <button id="carregar">Carregar alunos</button>
+        <button id="carregar">Carregar dados</button>
         <button id="imprimir" class="ghost" disabled>Imprimir / salvar PDF</button>
       </div>
       <div id="msg"></div>
@@ -128,88 +186,201 @@
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
-  var TODOS = [];
-  var POR_FOLHA = 10;
+  var TODOS = [], INS = null, POR_FOLHA = 10, carregado = false;
+  var HORA = { 1: "8h00 às 9h10", 2: "9h30 às 10h40" };
+  var CORES = ["#00AEEF", "#EC008C", "#00A651", "#F7941D"];   // ciano, magenta, verde, laranja
 
-  var baseIni = "";
-  try { baseIni = new URL("index.html", location.href).href; } catch (e) {}
-  $("base").value = baseIni;
+  try { $("base").value = new URL("index.html", location.href).href; } catch (e) {}
 
-  function aviso(t, tipo) {
-    $("msg").innerHTML = t ? '<div class="msg ' + (tipo || "") + '">' + esc(t) + "</div>" : "";
-  }
-
+  function aviso(t, tipo) { $("msg").innerHTML = t ? '<div class="msg ' + (tipo || "") + '">' + esc(t) + "</div>" : ""; }
   function norm(s) { return String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); }
+  function porNome(a, b) { return norm(a.nome).localeCompare(norm(b.nome)); }
+  function cor(id) { return CORES[(Number(id) - 1) % 4]; }
+  function pagina(css) { $("pgstyle").textContent = "@page{size:A4 " + css + "}"; }
 
+  /* ---------- QR desenhado a partir da matriz de módulos (cor azul-tinta, 100% legível sem preto) ---------- */
   function qrSvg(texto) {
-    var q = qrcode(0, "M");
-    q.addData(texto);
-    q.make();
-    return q.createSvgTag(4, 0);
+    var q = qrcode(0, "M"), n, d = "", r, c, m = 3;
+    q.addData(texto); q.make(); n = q.getModuleCount();
+    for (r = 0; r < n; r++) for (c = 0; c < n; c++) if (q.isDark(r, c)) d += "M" + c + " " + r + "h1v1h-1z";
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + (-m) + " " + (-m) + " " + (n + 2 * m) + " " + (n + 2 * m) +
+      '" shape-rendering="crispEdges"><path fill="#2E3192" d="' + d + '"/></svg>';
   }
-
   function morcego(c) { return '<svg class="' + c + '" viewBox="0 0 64 32"><use href="#morcego"/></svg>'; }
 
+  /* ---------- ingressos ---------- */
   function ingresso(a, base) {
     var url = base + (base.indexOf("?") >= 0 ? "&" : "?") + "c=" + encodeURIComponent(a.codigo);
     var longo = a.nome.length > 16 ? " long" : "";
     return '<div class="ing"><div class="main">' +
-      '<div class="band"><div class="s">Sábado letivo</div><div class="h">Halloween</div>' +
-        morcego("b1") + morcego("b2") + morcego("b3") + "</div>" +
+      '<div class="band"><div class="s">Sábado letivo</div><div class="h">Halloween</div>' + morcego("b1") + morcego("b2") + "</div>" +
       '<div class="corpo"><div class="lbl">Ingresso · 1 aluno(a)</div>' +
         '<div class="nm' + longo + '">' + esc(a.nome) + "</div>" +
         '<div class="tm">Turma ' + esc(a.turma) + "</div>" +
         '<div class="dt">31/10 · 8h às 12h<small>Oficinas, desfile de fantasias e premiação</small></div>' +
-        '<svg class="ab" viewBox="0 0 48 44"><use href="#abobora"/></svg></div>' +
-      "</div>" +
+        '<svg class="ab" viewBox="0 0 48 44"><use href="#abobora"/></svg></div></div>' +
       '<div class="stub"><div class="qrb">' + qrSvg(url) + "</div>" +
         '<div class="cl">Seu código</div><div class="cd">' + esc(a.codigo) + "</div>" +
-        '<div class="ap">Aponte a câmera<br>para se inscrever</div></div>' +
-      "</div>";
+        '<div class="ap">Aponte a câmera<br>para se inscrever</div></div></div>';
   }
 
-  function render() {
+  function renderIngressos() {
     var t = $("turma").value, base = $("base").value.trim();
     var lista = TODOS.filter(function (a) { return !t || a.turma === t; });
-    if (!lista.length) { $("folhas").innerHTML = ""; $("imprimir").disabled = true; return; }
-    if (typeof qrcode === "undefined") {
-      aviso("Não consegui carregar o gerador de QR. Confira a internet e recarregue a página.", "err");
-      return;
-    }
-    var h = "";
-    for (var i = 0; i < lista.length; i += POR_FOLHA) {
+    if (!lista.length) return 0;
+    if (typeof qrcode === "undefined") { aviso("Não consegui carregar o gerador de QR. Confira a internet e recarregue a página.", "err"); return 0; }
+    var h = "", i;
+    for (i = 0; i < lista.length; i += POR_FOLHA) {
       h += '<div class="folha">';
       lista.slice(i, i + POR_FOLHA).forEach(function (a) { h += ingresso(a, base); });
       h += "</div>";
     }
+    $("folhas").className = $("eco").value;
     $("folhas").innerHTML = h;
+    pagina("portrait;margin:10mm");
+    return Math.ceil(lista.length / POR_FOLHA);
+  }
+
+  /* ---------- listas ---------- */
+  function ofMap() { var m = {}; INS.oficinas.forEach(function (o) { m[o.id] = o; }); return m; }
+  function celula(M, id) {
+    if (id === "" || !M[id]) return '<span class="sem">a definir</span>';
+    return '<span class="chip" style="background:' + cor(id) + '"></span>' + esc(M[id].nome) + " <small>· " + esc(M[id].sala) + "</small>";
+  }
+  function turmasDe(lista) {
+    var t = []; lista.forEach(function (a) { if (t.indexOf(a.turma) < 0) t.push(a.turma); });
+    return t.sort(function (a, b) { return a.localeCompare(b, "pt-BR", { numeric: true }); });
+  }
+
+  function renderOficina() {
+    var sel = $("ofic").value, pres = $("pres").checked, h = "", n = 0;
+    INS.oficinas.slice().sort(function (a, b) { return a.bloco - b.bloco || a.id - b.id; })
+      .filter(function (o) { return !sel || String(o.id) === sel; })
+      .forEach(function (o) {
+        var lista = INS.alunos.filter(function (a) { return String(o.bloco === 1 ? a.b1 : a.b2) === String(o.id); }).sort(porNome);
+        h += '<div class="pag"><div class="cab"><div><h2>' + esc(o.nome) + '</h2><div class="d">Bloco ' + o.bloco + " · " + HORA[o.bloco] + " · " + esc(o.sala) + "</div></div>" +
+          '<div class="r">' + lista.length + " aluno(s)<br>Sábado Letivo: Halloween · 31/10</div></div>";
+        if (!lista.length) h += '<div class="vazio">Nenhum aluno nesta oficina.</div>';
+        else {
+          h += '<table class="lt"><thead><tr><th class="n">Nº</th><th>Nome</th><th style="width:22mm">Turma</th>' + (pres ? '<th class="p">Presença</th>' : "") + "</tr></thead><tbody>";
+          lista.forEach(function (a, i) {
+            h += '<tr><td class="n">' + (i + 1) + "</td><td>" + esc(a.nome) + "</td><td>" + esc(a.turma) + "</td>" + (pres ? '<td class="p"><span class="cx"></span></td>' : "") + "</tr>";
+          });
+          h += "</tbody></table>";
+        }
+        h += '<div class="rod">Professores: ______________________________________</div></div>';
+        n++;
+      });
+    $("folhas").className = "";
+    $("folhas").innerHTML = h;
+    pagina("portrait;margin:12mm");
+    return n;
+  }
+
+  function renderTurma() {
+    var t = $("turma").value, pres = $("pres").checked, M = ofMap(), h = "", n = 0;
+    turmasDe(INS.alunos).filter(function (x) { return !t || x === t; }).forEach(function (tm) {
+      var lista = INS.alunos.filter(function (a) { return a.turma === tm; }).sort(porNome);
+      h += '<div class="pag land"><div class="cab"><div><h2>Chamada · Turma ' + esc(tm) + '</h2><div class="d">Sábado Letivo: Halloween · 31/10</div></div>' +
+        '<div class="r">' + lista.length + " aluno(s)</div></div>" +
+        '<table class="lt"><thead><tr><th class="n">Nº</th><th style="width:60mm">Nome</th>' +
+        "<th>Bloco 1 · " + HORA[1] + "</th>" + (pres ? '<th class="p">Presença</th>' : "") +
+        "<th>Bloco 2 · " + HORA[2] + "</th>" + (pres ? '<th class="p">Presença</th>' : "") + "</tr></thead><tbody>";
+      lista.forEach(function (a, i) {
+        h += '<tr><td class="n">' + (i + 1) + "</td><td>" + esc(a.nome) + "</td><td>" + celula(M, a.b1) + "</td>" + (pres ? '<td class="p"><span class="cx"></span></td>' : "") +
+          "<td>" + celula(M, a.b2) + "</td>" + (pres ? '<td class="p"><span class="cx"></span></td>' : "") + "</tr>";
+      });
+      h += '</tbody></table><div class="rod">10h50 às 12h00 · Desfile, votação e premiação · Foyer</div></div>';
+      n++;
+    });
+    $("folhas").className = "";
+    $("folhas").innerHTML = h;
+    pagina("landscape;margin:10mm");
+    return n;
+  }
+
+  function renderAfixar() {
+    var t = $("turma").value, M = ofMap(), h = "", n = 0;
+    turmasDe(INS.alunos).filter(function (x) { return !t || x === t; }).forEach(function (tm) {
+      var lista = INS.alunos.filter(function (a) { return a.turma === tm; }).sort(porNome);
+      h += '<div class="pag afx"><div class="cab"><div><h2>Turma ' + esc(tm) + '</h2><div class="d">Veja em qual oficina você está em cada bloco</div></div>' +
+        '<div class="r">Sábado Letivo<br>Halloween · 31/10</div></div>' +
+        '<table class="lt"><thead><tr><th>Nome</th><th>1º bloco · ' + HORA[1] + "</th><th>2º bloco · " + HORA[2] + "</th></tr></thead><tbody>";
+      lista.forEach(function (a) { h += "<tr><td>" + esc(a.nome) + "</td><td>" + celula(M, a.b1) + "</td><td>" + celula(M, a.b2) + "</td></tr>"; });
+      h += '</tbody></table><div class="rod">10h50 às 12h00 · Desfile, votação e premiação · Foyer</div></div>';
+      n++;
+    });
+    $("folhas").className = "";
+    $("folhas").innerHTML = h;
+    pagina("portrait;margin:12mm");
+    return n;
+  }
+
+  /* ---------- controle ---------- */
+  function mostrar() {
+    var m = $("modo").value;
+    $("boxTurma").classList.toggle("hide", m === "oficina");
+    $("boxOfic").classList.toggle("hide", m !== "oficina");
+    $("boxEco").classList.toggle("hide", m !== "ingressos");
+    $("boxBase").classList.toggle("hide", m !== "ingressos");
+    $("boxPres").classList.toggle("hide", m !== "oficina" && m !== "turma");
+  }
+
+  function render() {
+    mostrar();
+    $("imprimir").disabled = true;
+    if (!carregado) return;
+    var m = $("modo").value, n = 0, un;
+    if (m !== "ingressos" && !INS) {
+      $("folhas").innerHTML = "";
+      aviso("Para as listas, atualize o Code.gs no Apps Script (nova versão da implantação) e clique em Carregar dados de novo.", "err");
+      return;
+    }
+    if (m === "ingressos") n = renderIngressos();
+    else if (m === "oficina") n = renderOficina();
+    else if (m === "turma") n = renderTurma();
+    else n = renderAfixar();
+    if (!n) { $("folhas").innerHTML = ""; aviso("Nada para imprimir com esse filtro.", "err"); return; }
     $("imprimir").disabled = false;
-    var paginas = Math.ceil(lista.length / POR_FOLHA);
-    aviso(lista.length + " ingresso(s) em " + paginas + " folha(s) A4." +
-      (location.protocol === "file:" ? " Atenção: abra esta página pelo endereço do GitHub Pages, senão o QR não funciona." : ""), "ok");
+    var txt = n + (m === "ingressos" ? " folha(s) de ingressos (" + TODOS.length + " no total)." : " página(s).");
+    if (m !== "ingressos") {
+      un = INS.alunos.filter(function (a) { return a.b1 === "" || a.b2 === ""; }).length;
+      if (un) txt += " Atenção: " + un + " aluno(s) ainda sem oficina em algum bloco (aparecem como \"a definir\"). Use Halloween > 2. Distribuir quem não se inscreveu na planilha e carregue de novo.";
+    }
+    if (m === "ingressos" && location.protocol === "file:") txt += " Atenção: abra esta página pelo endereço do GitHub Pages, senão o QR não funciona.";
+    aviso(txt, "ok");
+  }
+
+  function opcoesTurma() {
+    var base = TODOS.length ? TODOS : (INS ? INS.alunos : []), ts = turmasDe(base);
+    $("turma").innerHTML = '<option value="">Todas (' + base.length + ")</option>" + ts.map(function (t) {
+      var n = base.filter(function (a) { return a.turma === t; }).length;
+      return '<option value="' + esc(t) + '">' + esc(t) + " (" + n + ")</option>";
+    }).join("");
+    $("turma").disabled = false;
+    if (INS) {
+      $("ofic").innerHTML = '<option value="">Todas</option>' + INS.oficinas.slice().sort(function (a, b) { return a.bloco - b.bloco || a.id - b.id; })
+        .map(function (o) { return '<option value="' + o.id + '">Bloco ' + o.bloco + " · " + esc(o.nome) + "</option>"; }).join("");
+      $("ofic").disabled = false;
+    }
   }
 
   function carregar() {
     var pin = $("pin").value.trim();
     if (!pin) { aviso("Digite o PIN do painel.", "err"); return; }
     $("carregar").disabled = true;
-    aviso("Buscando alunos…");
-    api("admin_alunos", { pin: pin }).then(function (j) {
+    aviso("Buscando dados…");
+    Promise.all([api("admin_alunos", { pin: pin }), api("admin_inscricoes", { pin: pin })]).then(function (r) {
       $("carregar").disabled = false;
-      if (j.erro) { aviso(j.erro, "err"); return; }
-      TODOS = j.alunos.slice().sort(function (a, b) {
-        return a.turma.localeCompare(b.turma, "pt-BR", { numeric: true }) ||
-          norm(a.nome).localeCompare(norm(b.nome));
+      var a = r[0], i = r[1];
+      if (a.erro) { aviso(a.erro, "err"); return; }
+      TODOS = a.alunos.slice().sort(function (x, y) {
+        return x.turma.localeCompare(y.turma, "pt-BR", { numeric: true }) || porNome(x, y);
       });
-      var turmas = [];
-      TODOS.forEach(function (a) { if (turmas.indexOf(a.turma) < 0) turmas.push(a.turma); });
-      $("turma").innerHTML = '<option value="">Todas (' + TODOS.length + ")</option>" +
-        turmas.map(function (t) {
-          var n = TODOS.filter(function (a) { return a.turma === t; }).length;
-          return '<option value="' + esc(t) + '">' + esc(t) + " (" + n + ")</option>";
-        }).join("");
-      $("turma").disabled = false;
+      INS = (i && i.ok) ? i : null;
+      carregado = true;
       if (!TODOS.length) { aviso("Nenhum aluno com código. Rode Halloween > 1. Gerar códigos dos alunos.", "err"); return; }
+      opcoesTurma();
       render();
     }).catch(function () {
       $("carregar").disabled = false;
@@ -219,9 +390,10 @@
 
   $("carregar").addEventListener("click", carregar);
   $("pin").addEventListener("keydown", function (e) { if (e.key === "Enter") carregar(); });
-  $("turma").addEventListener("change", render);
-  $("base").addEventListener("change", function () { if (TODOS.length) render(); });
+  ["modo", "turma", "ofic", "eco", "pres"].forEach(function (id) { $(id).addEventListener("change", render); });
+  $("base").addEventListener("change", render);
   $("imprimir").addEventListener("click", function () { window.print(); });
+  mostrar();
 })();
 </script>
 </body>

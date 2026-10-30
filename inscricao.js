@@ -6,6 +6,18 @@
   var sel = { 1: "", 2: "" };            // escolha ainda não enviada (só no celular)
   var HORA = { 1: "8h00 às 9h10", 2: "9h30 às 10h40" };
 
+  // estilo do botão de destaque da fantasia (fica aqui para não depender do shared.css)
+  (function () {
+    var st = document.createElement("style");
+    st.textContent = ".fant-cta{display:block;margin:14px 0;padding:16px 18px;border-radius:16px;text-decoration:none;" +
+      "color:#1a0b00;background:linear-gradient(135deg,#ffb347,#ff7a1a 55%,#ff4d6d);" +
+      "box-shadow:0 8px 24px rgba(255,122,26,.35);border:2px solid rgba(255,255,255,.4);animation:fantp 2.2s ease-in-out infinite}" +
+      ".fant-cta b{display:block;font-size:1.2rem;margin-bottom:2px}.fant-cta span{font-size:.92rem;opacity:.85}" +
+      "@keyframes fantp{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}" +
+      "@media (prefers-reduced-motion:reduce){.fant-cta{animation:none}}";
+    document.head.appendChild(st);
+  })();
+
   function info(id) {
     return (typeof A !== "undefined" && A.filter(function (x) { return x.id == id; })[0]) || {};
   }
@@ -74,6 +86,8 @@
     if (!S) { box.innerHTML = loginForm(); return; }
     var c = S.cfg, h = '<div class="glass ins-box"><div class="ins-who"><div><b>Olá, ' + esc(S.nome) + "</b><br>" +
       '<span class="ins-s">Turma ' + esc(S.turma) + " · código " + esc(S.codigo) + '</span></div><button class="btn ghost" id="sair">Sair</button></div></div>';
+    if (c.cadastro_fantasia) h += '<a class="fant-cta" href="fantasia.html"><b>🎭 Cadastrar minha fantasia</b>' +
+      "<span>Entre na votação do desfile. Leva só 1 minuto.</span></a>";
     if (msg && !c.inscricoes) h += '<div class="msg ' + msgT + '">' + esc(msg) + "</div>";
     if (c.inscricoes) h += '<div class="msg ok">Inscrições abertas. Escolha uma oficina em cada bloco e depois toque em confirmar.</div>';
     else h += '<div class="msg">As inscrições não estão abertas agora.' +
@@ -84,7 +98,6 @@
     });
     if (c.inscricoes) h += confirmBox();
     h += '<h3 class="ins-bl">Onde eu vou?</h3>' + passe();
-    if (c.cadastro_fantasia) h += '<a class="go" href="fantasia.html">Cadastrar minha fantasia</a>';
     if (c.voto_cartaz || c.voto_individual || c.voto_grupo) h += '<a class="go" href="votacao.html">Ir para a votação</a>';
     box.innerHTML = h;
   }

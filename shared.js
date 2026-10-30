@@ -1,5 +1,5 @@
 /* shared.js — conexão com o Apps Script e utilitários (usado por index, votacao e painel) */
-var API = "https://script.google.com/macros/s/AKfycbzPlTFAeGaVXEnDxUyiPZz-M0ygLyUEJBgCZ1uvZLtau1pOynHec73u1hrZcOGCvPuJPg/exec";
+var API = "https://script.google.com/macros/s/AKfycbwlK3yDerQMZPCR-oS57boftfLX6GScRW_9MZsCc_jUWiP14GHbae-Q1wwfa401xqLZYQ/exec";
 var EXTS = ["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"];
 
 function esc(s) {
