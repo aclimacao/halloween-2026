@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ingressos de Halloween</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#12081f;color:#f3e9ff}
+  .wrap{max-width:760px;margin:0 auto;padding:20px 16px 40px}
+  h1{font-size:1.5rem;margin:0 0 4px}
+  .sub{color:#b9a6d6;margin:0 0 18px}
+  .panel{background:#1d1033;border:1px solid #3a2466;border-radius:14px;padding:16px;margin-bottom:14px}
+  label{display:block;font-size:.85rem;color:#c9b8e6;margin:10px 0 4px}
+  label:first-child{margin-top:0}
+  input,select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid #4b2f82;background:#12081f;color:#fff;font-size:1rem}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:200px}
+  button{padding:11px 18px;border:0;border-radius:10px;background:#ff7a1a;color:#1a0b00;font-weight:700;font-size:1rem;cursor:pointer}
+  button.ghost{background:#2c1850;color:#f3e9ff}
+  button:disabled{opacity:.5;cursor:default}
+  .msg{padding:10px 12px;border-radius:10px;background:#2c1850;margin-top:12px}
+  .msg.err{background:#4a1220;color:#ffc9d2}
+  .msg.ok{background:#12381f;color:#c8f5d4}
+  .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  #folhas{margin-top:18px;overflow-x:auto}
+
+  /* ---------- ingressos (95 x 55 mm, 10 por folha A4) ---------- */
+  .folha{display:grid;grid-template-columns:repeat(2,95mm);grid-auto-rows:55mm;justify-content:center;background:#fff;margin:0 auto 16px;width:190mm}
+  .ing{position:relative;display:grid;grid-template-columns:1fr 31mm;overflow:hidden;background:#fffaf2;color:#1b1030;
+       border:.3mm dashed #9a8f86;border-radius:2.5mm}
+  .ing,.ing *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+  /* furinhos do picote */
+  .ing::before,.ing::after{content:"";position:absolute;right:31mm;width:4.4mm;height:4.4mm;border-radius:50%;
+       background:#fff;border:.3mm dashed #9a8f86;transform:translateX(50%)}
+  .ing::before{top:-2.4mm}
+  .ing::after{bottom:-2.4mm}
+
+  .main{display:flex;flex-direction:column;min-width:0}
+  .band{position:relative;height:16mm;padding:2.6mm 4mm 0;background:linear-gradient(100deg,#2b1263 0%,#4a1d96 100%);overflow:hidden}
+  .band .s{font-size:6.2pt;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:#d9c8ff}
+  .band .h{font-family:"Arial Black",Impact,system-ui,sans-serif;font-size:17pt;font-weight:900;letter-spacing:.07em;line-height:1.05;color:#ff8a1f;text-transform:uppercase}
+  .band .b1,.band .b2,.band .b3{position:absolute;fill:#12081f;opacity:.9}
+  .band .b1{width:11mm;height:5.5mm;right:3mm;top:2.5mm}
+  .band .b2{width:7mm;height:3.5mm;right:6mm;top:9.5mm}
+  .band .b3{display:none}
+
+  .corpo{flex:1;position:relative;padding:2.6mm 4mm 2.4mm;display:flex;flex-direction:column;min-height:0}
+  .lbl{font-size:5.8pt;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a7a99}
+  .nm{font-size:14pt;font-weight:800;line-height:1.08;margin-top:.6mm;word-break:break-word;color:#1b1030}
+  .nm.long{font-size:11.5pt}
+  .tm{align-self:flex-start;margin-top:2mm;padding:.7mm 3mm;border-radius:10mm;background:#ff8a1f;color:#2a1000;font-size:8.5pt;font-weight:800}
+  .dt{margin-top:auto;font-size:7pt;font-weight:700;color:#4a1d96}
+  .dt small{display:block;font-weight:500;color:#6b5d7a;font-size:6.2pt;margin-top:.3mm}
+  .ab{position:absolute;right:3.5mm;bottom:2.2mm;width:11mm;height:10mm}
+
+  .stub{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4mm;padding:2mm 2mm;
+        background:#ffe8cf;border-left:.4mm dashed #c9a36b}
+  .qrb{width:25mm;height:25mm;padding:1.3mm;background:#fff;border:.5mm solid #ff8a1f;border-radius:2.2mm}
+  .qrb svg{width:100%;height:100%;display:block}
+  .stub .cl{font-size:5.6pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#7a5a38;margin-top:.4mm}
+  .stub .cd{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14.5pt;font-weight:800;letter-spacing:.12em;line-height:1;color:#2b1263}
+  .stub .ap{font-size:5.4pt;line-height:1.15;text-align:center;color:#7a5a38}
+
+  @media print{
+    @page{size:A4;margin:10mm}
+    body{background:#fff}
+    .wrap{max-width:none;padding:0}
+    .no-print{display:none!important}
+    #folhas{margin:0;overflow:visible}
+    .folha{margin:0;page-break-after:always;break-after:page}
+    .folha:last-child{page-break-after:auto;break-after:auto}
+  }
+</style>
+</head>
+<body>
+<!-- desenhos usados nos ingressos -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="morcego" viewBox="0 0 64 32">
+      <path d="M32 7c-2 0-3 2-3 4l-3-2 1 4C22 9 13 8 1 14c6 1 9 4 9 11 4-4 9-4 12 0 2-4 7-4 10 2 3-6 8-6 10-2 3-4 8-4 12 0 0-7 3-10 9-11-12-6-21-5-26-1l1-4-3 2c0-2-1-4-3-4z"/>
+    </symbol>
+    <symbol id="abobora" viewBox="0 0 48 44">
+      <path d="M24 9c1-5 4-7 8-7-1 4-3 6-5 8z" fill="#3b7d2c"/>
+      <ellipse cx="13" cy="26" rx="12" ry="16" fill="#ff7a1a"/>
+      <ellipse cx="35" cy="26" rx="12" ry="16" fill="#ff7a1a"/>
+      <ellipse cx="24" cy="26" rx="11.5" ry="17" fill="#ff9a35"/>
+      <polygon points="15,23 20,23 17.5,17" fill="#2b1263"/>
+      <polygon points="28,23 33,23 30.5,17" fill="#2b1263"/>
+      <polygon points="14,30 18,33 21,31 24,34 27,31 30,33 34,30 32,37 24,40 16,37" fill="#2b1263"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <div class="no-print">
+    <h1>🎃 Ingressos de Halloween</h1>
+    <p class="sub">Gera os ingressos com nome, turma, código e QR a partir da aba Alunos.</p>
+
+    <div class="panel">
+      <div class="row">
+        <div>
+          <label for="pin">PIN do painel</label>
+          <input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN da aba Config">
+        </div>
+        <div>
+          <label for="turma">Turma</label>
+          <select id="turma" disabled><option value="">Todas</option></select>
+        </div>
+      </div>
+      <label for="base">Endereço da página de inscrição (o QR aponta para ele)</label>
+      <input id="base" type="url" autocomplete="off">
+      <div class="acts">
+        <button id="carregar">Carregar alunos</button>
+        <button id="imprimir" class="ghost" disabled>Imprimir / salvar PDF</button>
+      </div>
+      <div id="msg"></div>
+    </div>
+  </div>
+
+  <div id="folhas"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="shared.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var TODOS = [];
+  var POR_FOLHA = 10;
+
+  var baseIni = "";
+  try { baseIni = new URL("index.html", location.href).href; } catch (e) {}
+  $("base").value = baseIni;
+
+  function aviso(t, tipo) {
+    $("msg").innerHTML = t ? '<div class="msg ' + (tipo || "") + '">' + esc(t) + "</div>" : "";
+  }
+
+  function norm(s) { return String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); }
+
+  function qrSvg(texto) {
+    var q = qrcode(0, "M");
+    q.addData(texto);
+    q.make();
+    return q.createSvgTag(4, 0);
+  }
+
+  function morcego(c) { return '<svg class="' + c + '" viewBox="0 0 64 32"><use href="#morcego"/></svg>'; }
+
+  function ingresso(a, base) {
+    var url = base + (base.indexOf("?") >= 0 ? "&" : "?") + "c=" + encodeURIComponent(a.codigo);
+    var longo = a.nome.length > 16 ? " long" : "";
+    return '<div class="ing"><div class="main">' +
+      '<div class="band"><div class="s">Sábado letivo</div><div class="h">Halloween</div>' +
+        morcego("b1") + morcego("b2") + morcego("b3") + "</div>" +
+      '<div class="corpo"><div class="lbl">Ingresso · 1 aluno(a)</div>' +
+        '<div class="nm' + longo + '">' + esc(a.nome) + "</div>" +
+        '<div class="tm">Turma ' + esc(a.turma) + "</div>" +
+        '<div class="dt">31/10 · 8h às 12h<small>Oficinas, desfile de fantasias e premiação</small></div>' +
+        '<svg class="ab" viewBox="0 0 48 44"><use href="#abobora"/></svg></div>' +
+      "</div>" +
+      '<div class="stub"><div class="qrb">' + qrSvg(url) + "</div>" +
+        '<div class="cl">Seu código</div><div class="cd">' + esc(a.codigo) + "</div>" +
+        '<div class="ap">Aponte a câmera<br>para se inscrever</div></div>' +
+      "</div>";
+  }
+
+  function render() {
+    var t = $("turma").value, base = $("base").value.trim();
+    var lista = TODOS.filter(function (a) { return !t || a.turma === t; });
+    if (!lista.length) { $("folhas").innerHTML = ""; $("imprimir").disabled = true; return; }
+    if (typeof qrcode === "undefined") {
+      aviso("Não consegui carregar o gerador de QR. Confira a internet e recarregue a página.", "err");
+      return;
+    }
+    var h = "";
+    for (var i = 0; i < lista.length; i += POR_FOLHA) {
+      h += '<div class="folha">';
+      lista.slice(i, i + POR_FOLHA).forEach(function (a) { h += ingresso(a, base); });
+      h += "</div>";
+    }
+    $("folhas").innerHTML = h;
+    $("imprimir").disabled = false;
+    var paginas = Math.ceil(lista.length / POR_FOLHA);
+    aviso(lista.length + " ingresso(s) em " + paginas + " folha(s) A4." +
+      (location.protocol === "file:" ? " Atenção: abra esta página pelo endereço do GitHub Pages, senão o QR não funciona." : ""), "ok");
+  }
+
+  function carregar() {
+    var pin = $("pin").value.trim();
+    if (!pin) { aviso("Digite o PIN do painel.", "err"); return; }
+    $("carregar").disabled = true;
+    aviso("Buscando alunos…");
+    api("admin_alunos", { pin: pin }).then(function (j) {
+      $("carregar").disabled = false;
+      if (j.erro) { aviso(j.erro, "err"); return; }
+      TODOS = j.alunos.slice().sort(function (a, b) {
+        return a.turma.localeCompare(b.turma, "pt-BR", { numeric: true }) ||
+          norm(a.nome).localeCompare(norm(b.nome));
+      });
+      var turmas = [];
+      TODOS.forEach(function (a) { if (turmas.indexOf(a.turma) < 0) turmas.push(a.turma); });
+      $("turma").innerHTML = '<option value="">Todas (' + TODOS.length + ")</option>" +
+        turmas.map(function (t) {
+          var n = TODOS.filter(function (a) { return a.turma === t; }).length;
+          return '<option value="' + esc(t) + '">' + esc(t) + " (" + n + ")</option>";
+        }).join("");
+      $("turma").disabled = false;
+      if (!TODOS.length) { aviso("Nenhum aluno com código. Rode Halloween > 1. Gerar códigos dos alunos.", "err"); return; }
+      render();
+    }).catch(function () {
+      $("carregar").disabled = false;
+      aviso("Sem conexão com a planilha. Tente de novo.", "err");
+    });
+  }
+
+  $("carregar").addEventListener("click", carregar);
+  $("pin").addEventListener("keydown", function (e) { if (e.key === "Enter") carregar(); });
+  $("turma").addEventListener("change", render);
+  $("base").addEventListener("change", function () { if (TODOS.length) render(); });
+  $("imprimir").addEventListener("click", function () { window.print(); });
+})();
+</script>
+</body>
+</html>

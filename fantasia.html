@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Minha fantasia</title>
+<style>
+  :root{--bg:#12081f;--card:#1d1033;--line:#3a2466;--tx:#f3e9ff;--mut:#b9a6d6;--or:#ff7a1a;--ok:#12381f;--okt:#c8f5d4;--er:#4a1220;--ert:#ffc9d2}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx);line-height:1.4}
+  .wrap{max-width:560px;margin:0 auto;padding:18px 16px 48px}
+  h1{font-size:1.45rem;margin:0 0 2px}
+  h2{font-size:1.1rem;margin:0 0 4px}
+  .sub{color:var(--mut);margin:0 0 16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+  label{display:block;font-size:.88rem;color:#d3c3ee;margin:12px 0 5px}
+  input{width:100%;padding:12px;border-radius:10px;border:1px solid #4b2f82;background:var(--bg);color:#fff;font-size:1rem}
+  input:focus{outline:2px solid var(--or);outline-offset:1px}
+  input:disabled{opacity:.55}
+  .h{font-size:.82rem;color:var(--mut);margin:6px 0 0}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  button{padding:12px 18px;border:0;border-radius:10px;background:var(--or);color:#1a0b00;font-weight:800;font-size:1rem;cursor:pointer;flex:1;min-width:140px}
+  button.ghost{background:#2c1850;color:var(--tx);flex:0 0 auto;min-width:0}
+  button:disabled{opacity:.5;cursor:default}
+  .msg{padding:10px 12px;border-radius:10px;background:#2c1850;margin-top:12px}
+  .msg.ok{background:var(--ok);color:var(--okt)}
+  .msg.err{background:var(--er);color:var(--ert)}
+  .tag{display:inline-block;padding:2px 10px;border-radius:99px;background:var(--or);color:#2a1000;font-weight:800;font-size:.78rem;margin-left:6px;vertical-align:middle}
+  .quem{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  a.volta{display:block;text-align:center;margin-top:8px;color:var(--mut)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎃 Minha fantasia</h1>
+  <p class="sub">Cadastre a sua fantasia para ela aparecer na votação do desfile.</p>
+  <div id="app"></div>
+  <a class="volta" href="index.html">Voltar para as oficinas</a>
+</div>
+
+<script src="shared.js"></script>
+<script>
+(function () {
+  var app = document.getElementById("app");
+  var S = null, msg = "", st = { individual: {}, grupo: {} }, busy = { individual: false, grupo: false };
+  var val = { individual: { titulo: "" }, grupo: { titulo: "", nomes: "" } };
+
+  function carregarValores(so) {
+    var m = S.meus || {};
+    if (!so || so === "individual") val.individual.titulo = m.individual ? m.individual.titulo : "";
+    if (!so || so === "grupo") {
+      val.grupo.titulo = m.grupo ? m.grupo.titulo : "";
+      val.grupo.nomes = m.grupo ? m.grupo.nomes : "";
+    }
+  }
+
+  function loginForm() {
+    return '<div class="card"><label for="cod" style="margin-top:0">Código do seu ingresso</label>' +
+      '<input id="cod" maxlength="8" autocomplete="off" autocapitalize="characters" placeholder="ABCDE">' +
+      (msg ? '<div class="msg err">' + esc(msg) + "</div>" : "") +
+      '<div class="row"><button data-act="entrar">Entrar</button></div></div>';
+  }
+
+  function bloco(tipo) {
+    var meu = S.meus && S.meus[tipo], v = val[tipo], s = st[tipo] || {};
+    var travado = tipo === "individual" ? S.voto_individual : S.voto_grupo;
+    var fechado = !S.cadastro || travado || busy[tipo];
+    var titulo = tipo === "individual" ? "Fantasia individual" : "Fantasia em grupo";
+    var h = '<div class="card" data-t="' + tipo + '"><h2>' + titulo + (meu ? '<span class="tag">cadastrada ✓</span>' : "") + "</h2>";
+    if (tipo === "individual") {
+      h += '<p class="h">Seu nome aparece como está no ingresso: <b>' + esc(S.nome) + "</b> · turma " + esc(S.turma) + ".</p>" +
+        '<label for="f-ind">Qual é a sua fantasia?</label>' +
+        '<input id="f-ind" data-f="titulo" maxlength="80" autocomplete="off" placeholder="Ex.: Gru, de Meu Malvado Favorito" value="' + esc(v.titulo) + '"' + (fechado ? " disabled" : "") + ">";
+    } else {
+      h += '<p class="h">Só uma pessoa do grupo precisa cadastrar.</p>' +
+        '<label for="f-gt">Tema ou personagens do grupo</label>' +
+        '<input id="f-gt" data-f="titulo" maxlength="80" autocomplete="off" placeholder="Ex.: Os Incríveis" value="' + esc(v.titulo) + '"' + (fechado ? " disabled" : "") + ">" +
+        '<label for="f-gn">Integrantes (primeiro nome e inicial do sobrenome)</label>' +
+        '<input id="f-gn" data-f="nomes" maxlength="150" autocomplete="off" placeholder="Ex.: Ana C., João H., Bia S." value="' + esc(v.nomes) + '"' + (fechado ? " disabled" : "") + ">";
+    }
+    if (s.m) h += '<div class="msg ' + (s.t || "") + '">' + esc(s.m) + "</div>";
+    if (travado) h += '<div class="msg">A votação desta categoria já abriu. Para mudar, fale com o professor.</div>';
+    h += '<div class="row"><button data-act="salvar"' + (fechado ? " disabled" : "") + ">" +
+      (busy[tipo] ? "Enviando…" : meu ? "Atualizar" : "Cadastrar fantasia") + "</button>" +
+      (meu ? '<button class="ghost" data-act="apagar"' + (fechado ? " disabled" : "") + ">Remover</button>" : "") + "</div></div>";
+    return h;
+  }
+
+  function render() {
+    if (!S) { app.innerHTML = loginForm(); return; }
+    var h = '<div class="card quem"><div><b>Olá, ' + esc(S.nome) + '</b><br><span class="h">Turma ' + esc(S.turma) + " · código " + esc(S.codigo) +
+      '</span></div><button class="ghost" data-act="sair">Sair</button></div>';
+    if (!S.cadastro) h += '<div class="msg">O cadastro de fantasias não está aberto agora. Volte quando o professor avisar.</div>';
+    h += bloco("individual") + bloco("grupo");
+    app.innerHTML = h;
+  }
+
+  function entrar(c) {
+    c = (c || "").trim();
+    if (!c) { msg = "Digite o código do ingresso."; render(); return; }
+    app.innerHTML = '<div class="card">Procurando seu código…</div>';
+    api("fantasia_meu", { c: c }).then(function (j) {
+      if (j.erro) { msg = j.erro; S = null; clearCode(); render(); return; }
+      setCode(j.codigo); S = j; msg = ""; carregarValores(); render();
+    }).catch(function () { msg = "Sem conexão. Tente de novo."; S = null; render(); });
+  }
+
+  function aplicar(j, tipo, texto) {
+    busy[tipo] = false;
+    if (j.erro) {
+      st[tipo] = { m: j.erro, t: "err" };
+      if (j.fechado) { api("fantasia_meu", { c: S.codigo }).then(function (r) { if (r.ok) S = r; render(); }); }
+      render(); return;
+    }
+    S = j; carregarValores(tipo);
+    st[tipo] ={ m: texto + (j.recibo ? " às " + j.recibo : ""), t: "ok" };
+    render();
+  }
+
+  function enviar(acao, tipo, dados, texto) {
+    if (busy[tipo]) return;
+    busy[tipo] = true; st[tipo] = { m: "Enviando…", t: "" }; render();
+    setTimeout(function () {
+      api(acao, dados, {
+        tries: 5,
+        onRetry: function (n) { st[tipo] = { m: "Servidor ocupado, tentando de novo (" + n + ")…", t: "" }; render(); }
+      }).then(function (j) { aplicar(j, tipo, texto); })
+        .catch(function () {
+          busy[tipo] = false;
+          st[tipo] = { m: "Sem conexão. Nada foi enviado. Toque de novo.", t: "err" };
+          render();
+        });
+    }, Math.random() * 1500);
+  }
+
+  app.addEventListener("input", function (e) {
+    var f = e.target.dataset && e.target.dataset.f, card = e.target.closest("[data-t]");
+    if (f && card) val[card.dataset.t][f] = e.target.value;
+  });
+  app.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && e.target.id === "cod") entrar(e.target.value);
+  });
+  app.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-act]");
+    if (!b) return;
+    var act = b.dataset.act, card = b.closest("[data-t]"), tipo = card && card.dataset.t;
+    if (act === "entrar") entrar(document.getElementById("cod").value);
+    else if (act === "sair") { clearCode(); S = null; msg = ""; render(); }
+    else if (act === "salvar") {
+      var v = val[tipo];
+      if (!v.titulo.trim()) { st[tipo] = { m: tipo === "grupo" ? "Escreva o tema ou os personagens do grupo." : "Escreva o nome da sua fantasia.", t: "err" }; render(); return; }
+      if (tipo === "grupo" && !v.nomes.trim()) { st[tipo] = { m: "Escreva os integrantes do grupo.", t: "err" }; render(); return; }
+      enviar("fantasia_salvar", tipo, { c: S.codigo, tipo: tipo, titulo: v.titulo, nomes: v.nomes || "" }, "Fantasia cadastrada ✓");
+    } else if (act === "apagar") {
+      if (!confirm("Remover esta fantasia da votação?")) return;
+      enviar("fantasia_apagar", tipo, { c: S.codigo, tipo: tipo }, "Fantasia removida");
+    }
+  });
+
+  var c0 = getCode();
+  if (c0) entrar(c0); else render();
+})();
+</script>
+</body>
+</html>

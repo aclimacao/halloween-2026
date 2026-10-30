@@ -84,13 +84,14 @@ h2::after{content:"";display:block;height:4px;width:56px;margin-top:8px;border-r
 .pass{margin-top:14px;padding:20px;border-radius:26px;background:linear-gradient(120deg,var(--lar),var(--rosa));color:#12082a}
 .pass h3{font-size:1.5rem}.pass p{margin:6px 0;font-weight:700}
 nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:9;display:flex;gap:2px;padding:6px;border-radius:99px;background:#1a0f33ee;backdrop-filter:blur(14px);border:1px solid #ffffff30;box-shadow:0 10px 40px #000a}
-nav a{color:var(--tx);text-decoration:none;font-weight:700;font-size:.85rem;padding:10px 12px;border-radius:99px}
+nav a{color:var(--tx);text-decoration:none;font-weight:700;font-size:.8rem;padding:10px 10px;border-radius:99px}
 details{margin-top:10px;padding:12px 16px}summary{cursor:pointer;font-weight:700}
 details p{margin:8px 0 0}details ul{margin:8px 0 0;padding-left:20px}details li{margin:6px 0}
 footer{text-align:center;color:var(--mut);padding:40px 0 10px;font-size:.85rem}
 button:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid #fff;outline-offset:2px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
+<link rel="stylesheet" href="shared.css">
 </head>
 <body>
 <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
@@ -118,6 +119,12 @@ button:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{
 <div class="now glass" aria-live="polite" id="agora"></div>
 </header>
 
+<section id="inscricao">
+<h2>Minha inscrição</h2>
+<p class="sub">Digite o código do seu ingresso para escolher suas oficinas e ver onde você vai estar.</p>
+<div id="ins"></div>
+</section>
+
 <section id="programa">
 <h2>Programação</h2>
 <p class="sub">Dois blocos de oficinas, com quatro opções em cada. Escolha uma por bloco e vá direto para a sala: a acolhida acontece lá, nos primeiros minutos.</p>
@@ -143,8 +150,7 @@ button:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{
 </section>
 
 <section id="passe">
-<h2>Meu passe</h2>
-<div class="pass" id="meu"></div>
+<h2>Dúvidas</h2>
 <details class="glass"><summary>Preciso me fantasiar?</summary>
 <p>Não. A fantasia é opcional e dá para participar de tudo sem ela. Se você for se fantasiar, pense na segurança:</p>
 <ul>
@@ -171,7 +177,7 @@ button:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{
 </section>
 <footer>Senac Aclimação · Ensino Médio e Técnico 2026<br>Sábado Letivo: Halloween</footer>
 </main>
-<nav aria-label="Seções"><a href="#programa">Programa</a><a href="#concursos">Concursos</a><a href="#passe">Passe</a></nav>
+<nav aria-label="Seções"><a href="#inscricao">Inscrição</a><a href="#programa">Programa</a><a href="#concursos">Concursos</a><a href="#passe">Dúvidas</a></nav>
 
 <script>
 var A=[
@@ -188,11 +194,9 @@ var cur=1,pick={1:0,2:0};
 try{pick=JSON.parse(localStorage.getItem("hw5")||"")||pick}catch(e){}
 function save(){try{localStorage.setItem("hw5",JSON.stringify(pick))}catch(e){}}
 function list(){var h="";A.filter(function(x){return x.b==cur}).forEach(function(x){
-h+='<article class="card" style="--c:'+x.c+'"><div class="big" aria-hidden="true">'+x.e+'</div><h3>'+x.n+'</h3><p>'+x.d+'</p><div class="items">'+x.i.map(function(t){return '<span>'+t+'</span>'}).join("")+'</div><div class="meta"><span>'+x.l+'</span><span>'+x.t+'</span></div>'+(x.o?'<div class="note">'+x.o+'</div>':'')+'<button class="pick" data-id="'+x.id+'" aria-pressed="'+(pick[cur]==x.id)+'">'+(pick[cur]==x.id?"Escolhido":"Quero esta")+'</button></article>'});
+h+='<article class="card" style="--c:'+x.c+'"><div class="big" aria-hidden="true">'+x.e+'</div><h3>'+x.n+'</h3><p>'+x.d+'</p><div class="items">'+x.i.map(function(t){return '<span>'+t+'</span>'}).join("")+'</div><div class="meta"><span>'+x.l+'</span><span>'+x.t+'</span></div>'+(x.o?'<div class="note">'+x.o+'</div>':'')+'</article>'});
 h+='<div class="break">'+(cur==1?"9h10 às 9h30 · Intervalo":"10h40 às 10h50 · Deslocamento para o Foyer")+'</div>';
 document.getElementById("lista").innerHTML=h}
-function passe(){function f(b){var x=A.filter(function(y){return y.id==pick[b]})[0];return x?x.n+" · "+x.l:"Ainda não escolhido"}
-document.getElementById("meu").innerHTML='<h3>Sábado Letivo: Halloween</h3><p>Bloco 1 · 8h00: '+f(1)+'</p><p>Bloco 2 · 9h30: '+f(2)+'</p><p>10h50: Desfile, votação e premiação no Foyer</p>'}
 function now(sim){var m=sim!=null?sim:new Date().getHours()*60+new Date().getMinutes(),t,s,p=0;
 if(m<480||m>=720){t="Fora do horário";s="O evento é no sábado, das 8h às 12h. Use a prévia para ver como fica.";}
 else if(m<550){t="Bloco 1";s="Acolhida na sala e mãos à obra";p=(m-480)/70*100}
@@ -204,13 +208,15 @@ var o='<option value="">Horário real</option>';[[490,"8h10"],[520,"8h40"],[560,
 document.getElementById("agora").innerHTML='<span class="lbl">Acontecendo agora</span><h3>'+t+'</h3><div>'+s+'</div><div class="bar"><i style="width:'+Math.min(p,100)+'%"></i></div><label>Prévia: <select id="sim" aria-label="Simular horário">'+o+'</select></label>'}
 document.addEventListener("click",function(e){var t=e.target.closest("button");if(!t)return;
 if(t.dataset.b){cur=+t.dataset.b;document.querySelectorAll(".seg button").forEach(function(b){b.setAttribute("aria-selected",b==t)});list()}
-else if(t.dataset.id){var i=+t.dataset.id;pick[cur]=pick[cur]==i?0:i;save();list();passe()}});
+});
 document.addEventListener("change",function(e){if(e.target.id=="sim")now(e.target.value===""?null:+e.target.value)});
-list();passe();now(null);
+list();now(null);
 (function(){var d=document.getElementById("lamp"),idle=0,t=0,still=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
 function mv(e){var r=d.getBoundingClientRect();d.style.setProperty("--x",(e.clientX-r.left)+"px");d.style.setProperty("--y",(e.clientY-r.top)+"px");idle=Date.now();d.classList.add("used")}
 d.addEventListener("pointermove",mv);d.addEventListener("pointerdown",mv);
 if(!still)setInterval(function(){if(Date.now()-idle<2500)return;t+=.04;d.style.setProperty("--x",(50+36*Math.sin(t))+"%");d.style.setProperty("--y",(50+30*Math.cos(t*1.3))+"%")},40)})();
 </script>
+<script src="shared.js"></script>
+<script src="inscricao.js"></script>
 </body>
 </html>
