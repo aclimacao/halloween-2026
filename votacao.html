@@ -131,7 +131,7 @@ function lista(){
   var c=cat,C=CATS[c],q=Q.toLowerCase(),h="";
   L[c].filter(function(x){return !q||(x.titulo+" "+x.nomes+" "+x.turma).toLowerCase().indexOf(q)>=0}).forEach(function(x){
     h+='<article class="card opt" data-id="'+x.id+'" style="--c:'+C.c+'"><div class="pos"></div>'+
-      (c==="cartaz"?'<div class="imgw">'+imgTag(x.id,x.titulo)+'</div>':'')+
+      (c==="cartaz"?'<div class="imgw">'+imgTag(x.id,x.titulo,x.foto)+'</div>':'')+
       '<h3>'+esc(x.titulo)+'</h3><p>'+esc(x.nomes)+(x.turma?' · '+esc(x.turma):'')+'</p>'+
       '<div class="rk-row">'+MED.map(function(m,i){return '<button class="rk" data-r="'+i+'" data-id="'+x.id+'" aria-label="'+ORD[i]+'" aria-pressed="false">'+m+'</button>'}).join("")+'</div></article>';
   });

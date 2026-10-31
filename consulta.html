@@ -36,6 +36,7 @@
   .sem{color:#ff8fc1;font-weight:700}
   .nv{background:#3a1030;border-color:#7a2a66}
   .nv .tag{display:inline-block;padding:2px 10px;border-radius:99px;background:#ff3d9a;color:#12082a;font-weight:800;font-size:.8rem}
+  .cod{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;letter-spacing:.14em;font-size:1.1rem;color:var(--lima);background:#0e0720;border:1px dashed #6a4aa8;border-radius:8px;padding:2px 10px}
   .vazio{color:var(--mut);text-align:center;padding:24px 0}
   .hide{display:none!important}
 </style>
@@ -54,8 +55,8 @@
 
   <div id="app" class="hide">
     <div class="panel">
-      <label for="q">Buscar por nome</label>
-      <input id="q" type="search" autocomplete="off" placeholder="Digite parte do nome">
+      <label for="q">Buscar por nome ou código</label>
+      <input id="q" type="search" autocomplete="off" placeholder="Parte do nome ou o código">
       <div class="row">
         <div><label for="turma">Turma</label><select id="turma"></select></div>
         <div><label for="ofic">Oficina</label><select id="ofic"></select></div>
@@ -101,7 +102,7 @@
     var q = norm($("q").value.trim()), t = $("turma").value, o = $("ofic").value;
     var lista = D.alunos.filter(function (a) {
       if (t && a.turma !== t) return false;
-      if (q && norm(a.nome).indexOf(q) < 0) return false;
+      if (q && norm(a.nome).indexOf(q) < 0 && norm(a.cod).indexOf(q) < 0) return false;
       if (o && String(a.b1) !== o && String(a.b2) !== o) return false;
       return true;
     }).sort(function (a, b) { return norm(a.nome).localeCompare(norm(b.nome)); });
@@ -109,8 +110,10 @@
     if (!lista.length) { $("lista").innerHTML = '<div class="vazio">Ninguém encontrado com esse filtro.</div>'; return; }
     $("lista").innerHTML = lista.map(function (a) {
       if (a.nv) return '<div class="al nv"><div class="top"><span class="nm">' + esc(a.nome) + '</span><span class="tm">' + esc(a.turma) + "</span></div>" +
+        '<div class="bl"><span class="h">Código</span><span class="cod">' + esc(a.cod) + "</span></div>" +
         '<span class="tag">Avisou que não vem</span></div>';
       return '<div class="al"><div class="top"><span class="nm">' + esc(a.nome) + '</span><span class="tm">' + esc(a.turma) + "</span></div>" +
+        '<div class="bl"><span class="h">Código</span><span class="cod">' + esc(a.cod) + "</span></div>" +
         '<div class="bl"><span class="h">Bloco 1 · ' + HORA[1] + "</span><span>" + celula(a.b1) + "</span></div>" +
         '<div class="bl"><span class="h">Bloco 2 · ' + HORA[2] + "</span><span>" + celula(a.b2) + "</span></div>" +
         '<div class="bl"><span class="h">10h50</span><span>Foyer (desfile) ou Auditório</span></div></div>';
