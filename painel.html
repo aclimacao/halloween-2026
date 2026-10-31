@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Painel · Sábado Letivo: Halloween</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.seg{display:flex;padding:5px;gap:4px;border-radius:99px;background:#1a0f33;border:1px solid #ffffff2a;margin:14px 0 8px}
+.seg button{flex:1;font:inherit;font-weight:700;font-size:.85rem;color:var(--mut);background:none;border:0;border-radius:99px;padding:10px 4px;cursor:pointer}
+.seg button[aria-selected=true]{background:linear-gradient(90deg,var(--lar),var(--rosa));color:#12082a}
+.box{padding:16px;margin-top:12px}
+.box h3{font-size:1.2rem;margin-bottom:8px}
+.lab{display:block;font-weight:700;font-size:.9rem;margin:12px 0 6px}
+.tg{display:block;width:100%;margin-top:8px;text-align:left;background:#ffffff14;color:var(--tx);border:1.5px solid #ffffff40}
+.tg.on{background:#c6ff3d22;border-color:var(--lima)}
+.row{padding:10px 0;border-bottom:1px solid #ffffff1f;font-size:.92rem}
+.row:last-child{border-bottom:0}.row small{color:var(--mut)}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;background:#00000050;font-size:.78rem;font-weight:700;margin-right:6px}
+.rank{display:flex;gap:10px;align-items:baseline;padding:8px 0;border-bottom:1px solid #ffffff1f}
+.rank b.n{width:2.2em;flex:none}
+.rank .p{margin-left:auto;font-weight:800;white-space:nowrap}
+.warn{color:#ffd54a;font-size:.8rem;font-weight:700}
+.row .foto{max-height:110px;width:auto;max-width:100%;border-radius:10px;margin-top:6px;display:block}
+.row .semfoto{color:#ffd54a;font-size:.8rem;font-weight:700;margin-top:4px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.acts .btn{padding:8px 12px;font-size:.82rem;width:auto}
+/* telão */
+#rev{position:fixed;inset:0;z-index:100;background:radial-gradient(circle at 50% 30%,#2b1263,#0e0720 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;overflow:hidden;cursor:pointer}
+#rev[hidden]{display:none}
+#cv{position:absolute;inset:0;pointer-events:none;z-index:3}
+.stage{position:relative;z-index:2;max-width:1000px;width:100%}
+.hg{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;line-height:1;background:linear-gradient(100deg,var(--lar),var(--rosa),var(--rox),var(--lima),var(--lar));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 6s linear infinite}
+.t1{font-size:clamp(2.2rem,7vw,5rem)}.t2{font-size:clamp(1.6rem,4.5vw,3.2rem)}
+.qm{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(6rem,26vw,16rem);line-height:1;color:var(--lima);text-shadow:0 0 40px var(--lima),0 0 90px var(--rosa);animation:pulso .9s ease-in-out infinite}
+@keyframes pulso{50%{transform:scale(1.14);opacity:.7}}
+@keyframes pop{0%{transform:scale(.3) rotate(-6deg);opacity:0}70%{transform:scale(1.08) rotate(1deg);opacity:1}100%{transform:scale(1)}}
+.win{animation:pop .7s cubic-bezier(.2,1.4,.4,1) both}
+.medal{font-size:clamp(4rem,16vw,9rem);line-height:1;filter:drop-shadow(0 0 30px #ffd54a)}
+.lug{font-weight:800;letter-spacing:.2em;color:var(--lima);font-size:clamp(1rem,3vw,1.6rem);margin:6px 0 10px}
+.wn{font-size:clamp(2.2rem,8vw,5.5rem)}
+.wp{font-size:clamp(1.1rem,3.2vw,2rem);color:#f6f0ff;margin-top:12px}
+.wpt{color:var(--mut);margin-top:8px;font-size:clamp(.9rem,2.4vw,1.3rem)}
+.wimg{max-height:36vh;max-width:90%;border-radius:16px;margin-top:14px;box-shadow:0 0 40px #ff3d9a88}
+.podio{display:flex;gap:14px;justify-content:center;align-items:flex-end;margin-top:22px}
+.podio>div{flex:1;max-width:260px;padding:14px 10px;border-radius:20px;background:#ffffff14;border:1.5px solid #ffffff40}
+.podio .m{font-size:2.4rem}.podio b{display:block;font-size:clamp(1rem,2.6vw,1.5rem)}.podio small{color:var(--mut)}
+.rctl{position:absolute;bottom:16px;left:0;right:0;z-index:5;display:flex;justify-content:center;gap:10px}
+.rcl{position:absolute;top:12px;left:12px;z-index:5}
+.rctl .btn,.rcl .btn{opacity:.85}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div class="wrap">
+<div class="top">Painel da organização</div>
+<h1 class="ttl">Sábado Letivo: Halloween</h1>
+<div id="app"></div>
+</div>
+
+<div id="rev" hidden>
+  <canvas id="cv"></canvas>
+  <div class="rcl"><button class="btn ghost" id="rfechar">✕ Fechar telão</button></div>
+  <div class="stage" id="stage"></div>
+  <div class="rctl"><button class="btn" id="rnext">Começar</button><button class="btn ghost" id="rmute" aria-label="Som">🔊</button></div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+var CATS={cartaz:"Melhor cartaz ou ilustração",individual:"Fantasia individual",grupo:"Fantasia em grupo"};
+var CAMPOS={
+  individual:[["nomes","Nome do estudante (ex.: Ana C.)"],["titulo","Personagem (ex.: Gru, Meu Malvado Favorito)"],["turma","Turma (ex.: ADM5)"]],
+  grupo:[["nomes","Integrantes (ex.: Ana C., Leo P., Bia D.)"],["titulo","Personagem ou tema do grupo"],["turma","Turma(s)"]],
+  cartaz:[["titulo","Título do cartaz (nome do filme)"],["nomes","Autores (ex.: Ana C., Leo P.)"],["turma","Turma"]]
+};
+var PIN="";try{PIN=sessionStorage.getItem("hw_pin")||""}catch(e){}
+var TAB="resumo",TIPO="individual",ST=null,TURMAS=[],PART=[],PL=null,PLC="cartaz",MSG="",OK="",BUSY=false;
+
+function el(i){return document.getElementById(i)}
+function adm(a,d){var o={pin:PIN};for(var k in d)o[k]=d[k];return api(a,o,{tries:3})}
+
+/* ---------- entrada ---------- */
+function loginHtml(){
+  return '<div class="glass box"><label class="lab" for="pin">PIN do painel</label><div class="ins-row"><input id="pin" class="in" inputmode="numeric" autocomplete="off" placeholder="000000"><button class="btn" id="go">Entrar</button></div>'+
+  (MSG?'<div class="msg err">'+esc(MSG)+'</div>':'')+'<p class="ins-h">O PIN aparece na aba Config da planilha (menu Halloween &gt; Mostrar PIN).</p></div>';
+}
+function entrar(p){
+  PIN=String(p||"").trim();
+  if(!PIN){MSG="Digite o PIN.";render();return}
+  el("app").innerHTML='<div class="glass box">Conferindo…</div>';
+  adm("admin_ping").then(function(j){
+    if(!j.ok){MSG=j.erro||"PIN incorreto";PIN="";render();return}
+    try{sessionStorage.setItem("hw_pin",PIN)}catch(e){}
+    MSG="";carrega();
+  }).catch(function(){MSG="Sem conexão com a planilha.";PIN="";render()});
+}
+function carrega(){
+  Promise.all([adm("admin_status"),adm("admin_alunos"),adm("admin_participantes")]).then(function(r){
+    if(r[0].erro){MSG=r[0].erro;PIN="";render();return}
+    ST=r[0];PART=(r[2].lista||[]);
+    var t={};(r[1].alunos||[]).forEach(function(a){t[a.turma]=1});TURMAS=Object.keys(t).sort();
+    render();
+  }).catch(function(){MSG="Não consegui carregar. Tente de novo.";render()});
+}
+
+/* ---------- telas ---------- */
+function render(){
+  var app=el("app");
+  if(!PIN||!ST){app.innerHTML=loginHtml();return}
+  var tabs=[["resumo","Resumo"],["cadastro","Cadastro"],["placar","Placar"],["telao","Telão"]];
+  app.innerHTML='<div class="seg" role="tablist">'+tabs.map(function(t){return '<button role="tab" data-tab="'+t[0]+'" aria-selected="'+(TAB===t[0])+'">'+t[1]+'</button>'}).join("")+'</div>'+
+    (MSG?'<div class="msg err">'+esc(MSG)+'</div>':'')+(OK?'<div class="msg ok">'+OK+'</div>':'')+'<div id="tab"></div>';
+  ({resumo:resumo,cadastro:cadastro,placar:placar,telao:telao})[TAB]();
+}
+
+function resumo(){
+  var c=ST.cfg,h='';
+  var itens=[["inscricoes","Inscrições"],["voto_cartaz","Votação: cartaz"],["voto_individual","Votação: fantasia individual"],["voto_grupo","Votação: fantasia em grupo"],["cadastro_fantasia","Cadastro de fantasias pelos alunos"]];
+  h+='<div class="glass box"><h3>Abrir e fechar</h3>'+itens.map(function(i){
+    var on=c[i[0]];
+    return '<button class="btn tg'+(on?' on':'')+'" data-k="'+i[0]+'" data-v="'+(on?"FECHADA":"ABERTA")+'"'+(BUSY?' disabled':'')+'>'+(on?'🟢 ':'🔒 ')+i[1]+': <b>'+(on?'ABERTA':'FECHADA')+'</b> <small>· toque para '+(on?'fechar':'abrir')+'</small></button>';}).join("")+'</div>';
+  h+='<div class="glass box"><h3>Números</h3><div class="meta"><span>'+ST.alunos+' alunos com código</span><span>sem bloco 1: '+ST.semBloco1+'</span><span>sem bloco 2: '+ST.semBloco2+'</span><span>não vem: '+(ST.naoVem||0)+'</span></div>'+
+    '<div class="meta"><span>cadastrados: '+ST.participantes.individual+' individuais</span><span>'+ST.participantes.grupo+' grupos</span><span>'+ST.participantes.cartaz+' cartazes</span></div>'+
+    '<div class="meta"><span>votantes: '+ST.votantes.cartaz+' no cartaz</span><span>'+ST.votantes.individual+' na individual</span><span>'+ST.votantes.grupo+' no grupo</span></div></div>';
+  h+='<div class="glass box"><h3>Vagas por oficina</h3>'+ST.oficinas.map(function(o){
+    return '<div class="row"><span class="pill">Bloco '+o.bloco+'</span><b>'+esc(o.nome)+'</b><br><small>'+esc(o.sala)+' · '+o.ocupadas+(o.vagas===null?' inscritos (sem limite)':' de '+o.vagas+' vagas')+'</small></div>';}).join("")+'</div>';
+  h+='<button class="btn ghost" id="atu" style="margin-top:14px">Atualizar números</button>';
+  el("tab").innerHTML=h;
+}
+
+function cadastro(){
+  var f=CAMPOS[TIPO];
+  var h='<div class="glass box"><h3>Cadastrar participante</h3><label class="lab" for="tp">Tipo</label><select id="tp" class="in">'+
+    ["individual","grupo","cartaz"].map(function(t){return '<option value="'+t+'"'+(t===TIPO?' selected':'')+'>'+{individual:"Fantasia individual",grupo:"Fantasia em grupo",cartaz:"Cartaz ou ilustração"}[t]+'</option>'}).join("")+'</select>'+
+    f.map(function(x){return '<label class="lab" for="f_'+x[0]+'">'+x[1]+'</label><input class="in txt" id="f_'+x[0]+'" data-f="'+x[0]+'" autocomplete="off"'+(x[0]==="turma"?' list="turmas"':'')+'>'}).join("")+
+    '<datalist id="turmas">'+TURMAS.map(function(t){return '<option value="'+esc(t)+'">'}).join("")+'</datalist>'+
+    (TIPO==="cartaz"?'<label class="lab" for="f_foto">Foto do cartaz (opcional agora; dá para enviar depois)</label><input class="in" id="f_foto" type="file" accept="image/*">':'')+
+    '<button class="btn" id="cad" style="margin-top:16px;width:100%"'+(BUSY?' disabled':'')+'>Cadastrar</button></div>';
+  h+='<div class="glass box"><h3>Cadastrados ('+PART.length+')</h3>'+(PART.length?PART.slice().reverse().map(function(p){
+    var ft=p.tipo==="cartaz"?(p.foto?imgTag(p.id,p.titulo,p.foto):'<div class="semfoto">sem foto</div>'):'';
+    return '<div class="row"><span class="pill">nº '+p.id+'</span><span class="pill">'+p.tipo+'</span><b>'+esc(p.titulo)+'</b><br><small>'+esc(p.nomes)+(p.turma?' · '+esc(p.turma):'')+'</small>'+ft+
+      '<div class="acts">'+(p.tipo==="cartaz"?'<button class="btn ghost" data-foto="'+p.id+'"'+(BUSY?' disabled':'')+'>📷 '+(p.foto?'Trocar':'Enviar')+' foto</button>':'')+
+      '<button class="btn ghost" data-rem="'+p.id+'"'+(BUSY?' disabled':'')+'>Remover</button></div></div>';}).join(""):'<p class="ins-h">Nenhum ainda.</p>')+
+    '<input type="file" id="fx" accept="image/*" hidden></div>';
+  el("tab").innerHTML=h;
+}
+
+function placar(){
+  var h='<div class="glass box"><h3>Placar (só você vê)</h3><select id="pc" class="in">'+Object.keys(CATS).map(function(c){return '<option value="'+c+'"'+(c===PLC?' selected':'')+'>'+CATS[c]+'</option>'}).join("")+'</select>'+
+    '<button class="btn" id="ver" style="margin-top:12px;width:100%"'+(BUSY?' disabled':'')+'>Ver placar</button></div>';
+  if(PL&&PL.ok){
+    h+='<div class="glass box"><h3>'+CATS[PL.cat]+'</h3><p class="ins-h" style="margin:0 0 8px">'+PL.votantes+' pessoas votaram · 🥇 3 pts · 🥈 2 pts · 🥉 1 pt</p>'+
+      (PL.ranking.length?PL.ranking.map(function(r,i){
+        var emp=(PL.ranking[i+1]&&PL.ranking[i+1].pontos===r.pontos&&r.pontos>0)||(i>0&&PL.ranking[i-1].pontos===r.pontos&&r.pontos>0);
+        return '<div class="rank"><b class="n">'+(i+1)+'º</b><div><b>'+esc(r.titulo)+'</b><br><small>'+esc(r.nomes)+(r.turma?' · '+esc(r.turma):'')+'</small>'+(emp?'<br><span class="warn">⚠ mesma pontuação que outro; desempate pelos 1º lugares</span>':'')+'</div><div class="p">'+r.pontos+' pts<br><small>🥇'+r.p1+' 🥈'+r.p2+' 🥉'+r.p3+'</small></div></div>';}).join(""):'<p class="ins-h">Ninguém cadastrado nesta categoria.</p>')+'</div>';
+  }
+  el("tab").innerHTML=h;
+}
+
+function telao(){
+  el("tab").innerHTML='<div class="glass box"><h3>Telão de revelação</h3><p class="ins-h" style="margin:0 0 10px">Feche a votação da categoria antes. Conecte o projetor, abra o telão e avance com a tecla Espaço, com Enter ou tocando na tela.</p>'+
+    '<select id="tc" class="in">'+Object.keys(CATS).map(function(c){return '<option value="'+c+'"'+(c===PLC?' selected':'')+'>'+CATS[c]+(ST.cfg["voto_"+c]?' (votação ainda ABERTA)':'')+'</option>'}).join("")+'</select>'+
+    '<button class="btn" id="abrir" style="margin-top:12px;width:100%"'+(BUSY?' disabled':'')+'>Apurar e abrir telão</button></div>';
+}
+
+/* ---------- ações ---------- */
+document.addEventListener("click",function(e){
+  var t=e.target.closest("button");if(!t||e.target.closest("#rev"))return;
+  if(t.id==="go")entrar(el("pin").value);
+  else if(t.dataset.tab){TAB=t.dataset.tab;OK="";MSG="";render()}
+  else if(t.dataset.k){
+    BUSY=true;render();
+    adm("admin_config",{chave:t.dataset.k,valor:t.dataset.v}).then(function(j){BUSY=false;if(j.ok){ST.cfg=j.cfg;OK="";MSG=""}else MSG=j.erro||"Erro";render()}).catch(function(){BUSY=false;MSG="Sem conexão.";render()});
+  }
+  else if(t.id==="atu"){OK="";carrega()}
+  else if(t.id==="cad")cadastrar();
+  else if(t.dataset.foto){FOTO_ID=t.dataset.foto;var fx=el("fx");fx.value="";fx.click()}
+  else if(t.dataset.rem){
+    var rid=t.dataset.rem;if(!confirm("Remover o participante nº "+rid+" da votação?"))return;
+    BUSY=true;MSG="";OK="";render();
+    adm("admin_remover",{id:rid}).then(function(j){
+      BUSY=false;if(!j.ok){MSG=j.erro||"Erro";render();return}
+      OK="Participante nº "+rid+" removido.";return adm("admin_participantes").then(function(r){PART=r.lista||[];return adm("admin_status")}).then(function(s){if(s&&s.cfg)ST=s;render()});
+    }).catch(function(){BUSY=false;MSG="Sem conexão.";render()});
+  }
+  else if(t.id==="ver"){
+    PLC=el("pc").value;BUSY=true;render();
+    adm("admin_placar",{cat:PLC}).then(function(j){BUSY=false;PL=j;if(!j.ok)MSG=j.erro||"Erro";render()}).catch(function(){BUSY=false;MSG="Sem conexão.";render()});
+  }
+  else if(t.id==="abrir"){
+    PLC=el("tc").value;BUSY=true;render();
+    adm("admin_placar",{cat:PLC}).then(function(j){BUSY=false;render();if(!j.ok){MSG=j.erro||"Erro";render();return}abreTelao(j)}).catch(function(){BUSY=false;MSG="Sem conexão.";render()});
+  }
+});
+document.addEventListener("change",function(e){if(e.target.id==="fx"&&e.target.files[0]){enviaFoto(FOTO_ID,e.target.files[0]);return}if(e.target.id==="tp"){TIPO=e.target.value;OK="";cadastro()}});
+document.addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target.id==="pin")entrar(e.target.value)});
+
+function cadastrar(){
+  var d={tipo:TIPO};document.querySelectorAll("[data-f]").forEach(function(i){d[i.dataset.f]=i.value});
+  var arq=el("f_foto")&&el("f_foto").files[0]||null;
+  BUSY=true;MSG="";OK="";cadastro();
+  adm("admin_cadastrar",d).then(function(j){
+    BUSY=false;
+    if(j.ok){
+      OK='Cadastrado: <b>nº '+j.id+'</b> · '+esc(j.titulo)+(j.tipo==="cartaz"&&!arq?'<br>Agora toque em <b>📷 Enviar foto</b> no cartaz, na lista abaixo.':'');
+      return adm("admin_participantes").then(function(r){PART=r.lista||PART;ST.participantes[j.tipo]=(ST.participantes[j.tipo]||0)+1;render();if(arq&&j.tipo==="cartaz")enviaFoto(j.id,arq)});
+    }
+    MSG=j.erro||"Não foi possível cadastrar.";render();
+  }).catch(function(){BUSY=false;MSG="Sem conexão. Nada foi cadastrado.";render()});
+}
+
+var FOTO_ID=0;
+/* reduz a foto no próprio aparelho (máx. 1600 px, JPEG) antes de enviar */
+function reduz(file,max,q){
+  return new Promise(function(ok,fail){
+    var u=URL.createObjectURL(file),im=new Image();
+    im.onload=function(){
+      var k=Math.min(1,max/Math.max(im.naturalWidth,im.naturalHeight)),c=document.createElement("canvas");
+      c.width=Math.round(im.naturalWidth*k);c.height=Math.round(im.naturalHeight*k);
+      var x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);
+      URL.revokeObjectURL(u);
+      var s=c.toDataURL("image/jpeg",q);ok(s.slice(s.indexOf(",")+1));
+    };
+    im.onerror=function(){URL.revokeObjectURL(u);fail(new Error("img"))};
+    im.src=u;
+  });
+}
+function enviaFoto(id,file){
+  BUSY=true;MSG="";OK="Enviando a foto do cartaz nº "+id+"…";render();
+  reduz(file,1600,.82).then(function(b64){
+    return apiPost("admin_foto",{pin:PIN,id:id,mime:"image/jpeg",data:b64},{tries:3,onRetry:function(){OK="Servidor ocupado, tentando de novo…";render()}});
+  }).then(function(j){
+    BUSY=false;
+    if(!j||!j.ok){OK="";MSG=(j&&j.erro)||"Não foi possível enviar a foto.";render();return}
+    OK="Foto do cartaz nº "+id+" enviada ✓";
+    return adm("admin_participantes").then(function(r){PART=r.lista||PART;render()});
+  }).catch(function(){BUSY=false;OK="";MSG="Não consegui enviar a foto (sem conexão ou foto ilegível). Tente de novo.";render()});
+}
+
+/* ---------- telão de revelação ---------- */
+var R=null,MUTE=false,AC=null,ANIM=0,TM=0;
+var MED={1:"🥇",2:"🥈",3:"🥉"};
+function ac(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==="suspended")AC.resume();return AC}
+function bip(f,t,d,tipo,v){var a=ac();if(!a||MUTE)return;var o=a.createOscillator(),g=a.createGain();o.type=tipo;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+d+.02)}
+function tambor(seg){var a=ac();if(!a||MUTE)return;var t=a.currentTime,n=Math.floor(seg*10);for(var i=0;i<n;i++){var k=i/n;bip(95-k*10,t+seg*(1-Math.pow(1-k,1.6)),.12,"triangle",.5+k*.4)}}
+function fanfarra(grande){var a=ac();if(!a||MUTE)return;var t=a.currentTime,n=grande?[523,659,784,1047,784,1047,1319]:[523,659,784,1047];n.forEach(function(f,i){bip(f,t+i*.14,.5,"square",.18);bip(f/2,t+i*.14,.5,"sawtooth",.1)})}
+function confete(qtd){
+  var cv=el("cv"),x=cv.getContext("2d");cv.width=innerWidth;cv.height=innerHeight;
+  var cols=["#ff7a1a","#ff3d9a","#8b5cff","#c6ff3d","#3de0ff","#ffd54a"],ps=[],i;
+  for(i=0;i<qtd;i++)ps.push({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.7,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,s:6+Math.random()*9,c:cols[i%cols.length],r:Math.random()*6,vr:(Math.random()-.5)*.3});
+  cancelAnimationFrame(ANIM);var t0=performance.now();
+  (function f(t){x.clearRect(0,0,cv.width,cv.height);ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/3,p.s,p.s/1.6);x.restore()});
+    if(t-t0<6000)ANIM=requestAnimationFrame(f);else x.clearRect(0,0,cv.width,cv.height)})(t0);
+}
+
+function abreTelao(j){
+  var rk=j.ranking.filter(function(r){return r.pontos>0}).slice(0,3);
+  R={cat:j.cat,votantes:j.votantes,top:rk,places:[],i:-1,fase:"intro"};
+  for(var p=Math.min(3,rk.length);p>=1;p--)R.places.push(p);
+  el("rev").hidden=false;el("rnext").textContent="Começar";el("rnext").disabled=false;
+  if(!rk.length){el("stage").innerHTML='<div class="hg t1">Ainda não há votos</div><p class="wp">Nenhum voto foi registrado em '+esc(CATS[j.cat])+'.</p>';R.fase="end";el("rnext").hidden=true;return}
+  el("rnext").hidden=false;
+  el("stage").innerHTML='<div class="hg t2">Sábado Letivo: Halloween</div><div class="hg t1" style="margin-top:14px">'+esc(CATS[j.cat])+'</div><p class="wp">Votação encerrada · '+j.votantes+' pessoas votaram</p><p class="wpt">Toque em Começar para conhecer os vencedores</p>';
+}
+function avanca(){
+  if(!R||R.fase==="susp"||R.fase==="end")return;
+  ac();
+  if(R.fase==="show"&&R.i>=R.places.length-1){podio();return}
+  R.i++;suspense(R.places[R.i]);
+}
+function suspense(p){
+  R.fase="susp";el("rnext").disabled=true;
+  var seg=p===1?7:4.2;
+  el("stage").innerHTML='<div class="hg t2">'+(p===1?'E o grande vencedor é…':'Em '+p+'º lugar…')+'</div><div class="qm" aria-hidden="true">?</div>';
+  tambor(seg);
+  TM=setTimeout(function(){revela(p)},seg*1000);
+}
+function revela(p){
+  var w=R.top[p-1];R.fase="show";fanfarra(p===1);confete(p===1?260:140);
+  el("stage").innerHTML='<div class="win"><div class="medal">'+MED[p]+'</div><div class="lug">'+p+'º LUGAR</div><div class="hg wn">'+esc(w.titulo)+'</div><div class="wp">'+esc(w.nomes)+(w.turma?' · '+esc(w.turma):'')+'</div>'+
+    (R.cat==="cartaz"?imgTag(w.id,w.titulo,w.foto).replace('class="foto"','class="wimg"'):'')+'<div class="wpt">'+w.pontos+' pontos</div></div>';
+  var ultimo=R.i>=R.places.length-1;
+  el("rnext").textContent=ultimo?"Ver o pódio":"Próximo";el("rnext").disabled=false;
+}
+function podio(){
+  R.fase="end";fanfarra(true);confete(300);el("rnext").hidden=true;
+  var ord=[2,1,3].filter(function(p){return R.top[p-1]});
+  el("stage").innerHTML='<div class="hg t1">Parabéns!</div><p class="wp">'+esc(CATS[R.cat])+'</p><div class="podio">'+ord.map(function(p){var w=R.top[p-1];
+    return '<div style="'+(p===1?'transform:translateY(-14px);border-color:#ffd54a':'')+'"><div class="m">'+MED[p]+'</div><b>'+esc(w.titulo)+'</b><small>'+esc(w.nomes)+(w.turma?' · '+esc(w.turma):'')+'</small></div>';}).join("")+'</div>';
+}
+function fechaTelao(){clearTimeout(TM);cancelAnimationFrame(ANIM);el("rev").hidden=true;R=null;var c=el("cv");c.getContext("2d").clearRect(0,0,c.width,c.height)}
+
+el("rnext").addEventListener("click",function(e){e.stopPropagation();if(R&&R.fase==="intro"&&R.i===-1&&R.places.length){avanca()}else avanca()});
+el("rfechar").addEventListener("click",function(e){e.stopPropagation();fechaTelao()});
+el("rmute").addEventListener("click",function(e){e.stopPropagation();MUTE=!MUTE;this.textContent=MUTE?"🔇":"🔊"});
+el("rev").addEventListener("click",function(){if(R&&R.fase!=="susp"&&!el("rnext").hidden&&!el("rnext").disabled)avanca()});
+document.addEventListener("keydown",function(e){
+  if(el("rev").hidden)return;
+  if(e.key==="Escape")fechaTelao();
+  else if(e.key===" "||e.key==="Enter"||e.key==="ArrowRight"){e.preventDefault();if(!el("rnext").hidden&&!el("rnext").disabled)avanca()}
+});
+
+if(PIN)entrar(PIN);else render();
+</script>
+</body>
+</html>
